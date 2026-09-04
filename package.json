@@ -1,0 +1,7 @@
+{
+  "name": "ultrapowers-walk",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "bunx tsc --noEmit && bun test" },
+  "devDependencies": { "typescript": "^5.6.0", "@types/bun": "latest" }
+}
