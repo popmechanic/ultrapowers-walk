@@ -1,0 +1,210 @@
+{
+  "integrationBranch": "ultra/integration-run-1",
+  "baseSha": "a5cd141275ac512a6c9aaece9888e350b48a7680",
+  "waves": [
+    [
+      "1",
+      "2",
+      "3"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": null,
+      "headSha": "244732ef51566e666075370dcfb14c5f2a4a7e66",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-1/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "unverified: the plan's Acceptance is `suite` (\"the committed suite is the verification\"), but no RUN EVIDENCE shows `bun test` executing. The two `Run:` greps that were executed (exit 0) cover only M4 and M5; legs (a)-(d) [M1-M3] are settled here by reading `src/title.ts` against `tests/title.test.ts`, which I traced by hand and which agree: `'hello wORLD'`->['hello',' ','wORLD']->'Hello World'; `'a  b'`->['a','  ','b']->'A  B'; `'foo\\tbar'`->'Foo\\tBar'; `''`->['']->''. What would settle it: a recorded `bun test` run in this clone showing the four tests in tests/title.test.ts passing.",
+      "tier": "opus",
+      "review": "lean",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0
+    },
+    {
+      "task": "2",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": null,
+      "headSha": "4f52e4334c43fb6679f8f71fec33f03da0bde11e",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-1/patches/task-2.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "lean",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0
+    },
+    {
+      "task": "3",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": null,
+      "headSha": "3b5735795e5b063845ec566cfdc19d28308bd2b5",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-1/patches/task-3.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "lean",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": "bun test v1.4.0 (34cbb9a40)\n$ bunx tsc --noEmit && bun test\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.15ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.09ms]\n(pass) a max of 1 leaves just the ellipsis [0.02ms]\n(pass) a max of 0 throws an Error naming 0 [0.12ms]\n(pass) a max of -1 throws an Error naming -1 [0.07ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.30ms]\n(pass) leading, trailing and doubled hyphens vanish [0.04ms]\n(pass) a single segment comes back unchanged [0.03ms]\n(pass) the empty string stays empty [0.02ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.16ms]\n(pass) trims hyphens from both ends [0.05ms]\n(pass) the empty string stays empty [0.01ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.19ms]\n(pass) interior whitespace is kept as is [0.03ms]\n(pass) a tab separator survives unchanged [0.02ms]\n(pass) the empty string stays empty [0.03ms]\n\n 16 pass\n 0 fail\n 21 expect() calls\nRan 16 tests across 4 files. [8.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .titleCase. \\| .src/title\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/title'\" tests/title.test.ts && grep -qE '^export (const|function) titleCase\\b' src/title.ts && ! grep -rlE '(const|function) titleCase\\b' src --exclude=title.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE '^\\| .truncate. \\| .src/truncate\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE \"from '\\.\\./src/truncate'\" tests/truncate.test.ts && grep -qE '^export (const|function) truncate\\b' src/truncate.ts && ! grep -rlE '(const|function) truncate\\b' src --exclude=truncate.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE '^\\| .camelCase. \\| .src/camel\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE \"from '\\.\\./src/camel'\" tests/camel.test.ts && grep -qE '^export (const|function) camelCase\\b' src/camel.ts && ! grep -rlE '(const|function) camelCase\\b' src --exclude=camel.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e tests/slug.test.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 54823,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 0,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "bun test v1.4.0 (34cbb9a40)\n$ bunx tsc --noEmit && bun test\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.16ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.08ms]\n(pass) a max of 1 leaves just the ellipsis [0.02ms]\n(pass) a max of 0 throws an Error naming 0 [0.12ms]\n(pass) a max of -1 throws an Error naming -1 [0.05ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.28ms]\n(pass) leading, trailing and doubled hyphens vanish [0.04ms]\n(pass) a single segment comes back unchanged [0.03ms]\n(pass) the empty string stays empty [0.02ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.21ms]\n(pass) trims hyphens from both ends [0.03ms]\n(pass) the empty string stays empty [0.01ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.21ms]\n(pass) interior whitespace is kept as is [0.03ms]\n(pass) a tab separator survives unchanged [0.02ms]\n(pass) the empty string stays empty [0.03ms]\n\n 16 pass\n 0 fail\n 21 expect() calls\nRan 16 tests across 4 files. [9.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": "bun test v1.4.0 (34cbb9a40)\n$ bunx tsc --noEmit && bun test\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.34ms]\n(pass) trims hyphens from both ends [0.05ms]\n(pass) the empty string stays empty [0.02ms]\n\n 3 pass\n 0 fail\n 3 expect() calls\nRan 3 tests across 1 file. [5.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "51068e856f2132cad623dd436976fc0fe4aadc87",
+      "branches": [
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-1/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-1/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 5,
+      "foldCliWallTimeSec": 0.9339999999999999,
+      "autoResolved": 0,
+      "resolverTranscripts": [
+        {
+          "conflict": 1,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 2,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-1/frontier/wave-1/conflict-1.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-1/frontier/wave-1/reply-1-1",
+          "status": "RESOLVED",
+          "notes": "Both sides add a distinct README table row (titleCase from frontier, truncate from task 2) under the existing slugify row. No conflict of intent \u2014 kept both rows, frontier's row first, task 2's row second, neither touching the slugify row above."
+        },
+        {
+          "conflict": 2,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 4,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-1/frontier/wave-1/conflict-2.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-1/frontier/wave-1/reply-2-1",
+          "status": "RESOLVED",
+          "notes": "Simple additive table-row conflict: both sides add new rows to the function reference table, no true conflict. Merged all three rows (camelCase, titleCase, truncate) after the existing slugify row."
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 3,
+    "tasks_planned": 3,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 3: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 2: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [],
+  "blockedWaves": []
+}

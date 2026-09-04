@@ -1,0 +1,262 @@
+{
+  "ok": true,
+  "stamp": "run-1",
+  "stages": [
+    {
+      "stage": "fleet-run",
+      "ok": true,
+      "detail": "fleet run run-1"
+    },
+    {
+      "stage": "git-repo",
+      "ok": true,
+      "detail": "/home/exedev/target"
+    },
+    {
+      "stage": "worktree-probe",
+      "ok": true,
+      "detail": "worktree capability verified (probe cut and removed)"
+    },
+    {
+      "stage": "compile",
+      "ok": true,
+      "detail": "3 task(s) in 1 wave(s); acceptance: suite"
+    },
+    {
+      "stage": "test-command",
+      "ok": true,
+      "detail": "bun run test (detected:package-json-bun)"
+    },
+    {
+      "stage": "bootstrap-command",
+      "ok": true,
+      "detail": "bun install --frozen-lockfile (detected:bun-lockfile)"
+    },
+    {
+      "stage": "dirty-baseline",
+      "ok": true,
+      "detail": "dirty baseline recorded: 0 pre-existing line(s)"
+    },
+    {
+      "stage": "base-branch",
+      "ok": true,
+      "detail": "detached HEAD \u2192 fell back to repo default 'main'"
+    }
+  ],
+  "compile": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "`titleCase`",
+        "disposition": "implementation",
+        "heuristic": false,
+        "writes": [
+          "README.md",
+          "src/title.ts"
+        ],
+        "depends_on": [],
+        "interfaces": {
+          "consumes": [
+            "none"
+          ],
+          "produces": [
+            "`titleCase(text: string) -> string`"
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "title": "`truncate`",
+        "disposition": "implementation",
+        "heuristic": false,
+        "writes": [
+          "README.md",
+          "src/truncate.ts"
+        ],
+        "depends_on": [],
+        "interfaces": {
+          "consumes": [
+            "none"
+          ],
+          "produces": [
+            "`truncate(text: string, max: number) -> string`"
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "title": "`camelCase`",
+        "disposition": "implementation",
+        "heuristic": false,
+        "writes": [
+          "README.md",
+          "src/camel.ts"
+        ],
+        "depends_on": [],
+        "interfaces": {
+          "consumes": [
+            "none"
+          ],
+          "produces": [
+            "`camelCase(kebab: string) -> string`"
+          ]
+        }
+      }
+    ],
+    "dag_edges": [],
+    "marker_conflicts": [],
+    "gates": [],
+    "post_merge_runbook": [],
+    "waves": [
+      [
+        "1",
+        "2",
+        "3"
+      ]
+    ],
+    "launch_waves": [
+      [
+        {
+          "id": "1",
+          "title": "`titleCase`",
+          "files": [
+            "README.md",
+            "src/title.ts",
+            "tests/title.test.ts"
+          ],
+          "depends_on": [],
+          "interfaces": {
+            "consumes": [
+              "none"
+            ],
+            "produces": [
+              "`titleCase(text: string) -> string`"
+            ]
+          },
+          "tier": null,
+          "review": "lean",
+          "writes": [
+            "README.md",
+            "src/title.ts"
+          ],
+          "commutes": [],
+          "proofTests": [
+            "tests/title.test.ts"
+          ],
+          "testCmd": null,
+          "proofRuns": [
+            "grep -qE '^\\| .titleCase. \\| .src/title\\.ts. \\|' README.md",
+            "grep -qE \"from '\\.\\./src/title'\" tests/title.test.ts && grep -qE '^export (const|function) titleCase\\b' src/title.ts && ! grep -rlE '(const|function) titleCase\\b' src --exclude=title.ts | grep -q ."
+          ]
+        },
+        {
+          "id": "2",
+          "title": "`truncate`",
+          "files": [
+            "README.md",
+            "src/truncate.ts",
+            "tests/truncate.test.ts"
+          ],
+          "depends_on": [],
+          "interfaces": {
+            "consumes": [
+              "none"
+            ],
+            "produces": [
+              "`truncate(text: string, max: number) -> string`"
+            ]
+          },
+          "tier": null,
+          "review": "lean",
+          "writes": [
+            "README.md",
+            "src/truncate.ts"
+          ],
+          "commutes": [],
+          "proofTests": [
+            "tests/truncate.test.ts"
+          ],
+          "testCmd": null,
+          "proofRuns": [
+            "grep -qE '^\\| .truncate. \\| .src/truncate\\.ts. \\|' README.md",
+            "grep -qE \"from '\\.\\./src/truncate'\" tests/truncate.test.ts && grep -qE '^export (const|function) truncate\\b' src/truncate.ts && ! grep -rlE '(const|function) truncate\\b' src --exclude=truncate.ts | grep -q ."
+          ]
+        },
+        {
+          "id": "3",
+          "title": "`camelCase`",
+          "files": [
+            "README.md",
+            "src/camel.ts",
+            "tests/camel.test.ts"
+          ],
+          "depends_on": [],
+          "interfaces": {
+            "consumes": [
+              "none"
+            ],
+            "produces": [
+              "`camelCase(kebab: string) -> string`"
+            ]
+          },
+          "tier": null,
+          "review": "lean",
+          "writes": [
+            "README.md",
+            "src/camel.ts"
+          ],
+          "commutes": [],
+          "proofTests": [
+            "tests/camel.test.ts"
+          ],
+          "testCmd": null,
+          "proofRuns": [
+            "grep -qE '^\\| .camelCase. \\| .src/camel\\.ts. \\|' README.md",
+            "grep -qE \"from '\\.\\./src/camel'\" tests/camel.test.ts && grep -qE '^export (const|function) camelCase\\b' src/camel.ts && ! grep -rlE '(const|function) camelCase\\b' src --exclude=camel.ts | grep -q ."
+          ]
+        }
+      ]
+    ],
+    "waveLabels": [
+      "3 parallel tasks"
+    ],
+    "mode": "parallel",
+    "degrade_reason": null,
+    "allHeuristic": false,
+    "acceptance": {
+      "mode": "suite",
+      "reason": "the committed suite is the verification."
+    },
+    "globalConstraints": "- No `any` and no non-null assertions in any file under `src/` or `tests/`.\n- No dependency is added to `package.json`; no helper imports from another helper's module,\n  and there is no barrel file (`src/index.ts` is not created).\n- `src/slug.ts` and `tests/slug.test.ts` are not edited.\n- Error messages name the offending value, so a caller reading only the message knows what it\n  passed.\n- The README table keeps its three-column shape (`Function | Module | Does`); a new row has the\n  same shape as the `slugify` row.\n\n**Acceptance:** suite \u2014 the committed suite is the verification.",
+    "constraintChecks": [
+      {
+        "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+        "minor": false
+      },
+      {
+        "cmd": "test -e src/slug.ts && test -e tests/slug.test.ts",
+        "minor": false
+      },
+      {
+        "cmd": "grep -rn 'TODO' src tests",
+        "minor": true
+      }
+    ],
+    "launch_file": "/home/exedev/target/.claude/ultrapowers/run-run-1/launch.json",
+    "args_file": "/home/exedev/target/.claude/ultrapowers/run-run-1/args.json"
+  },
+  "baseBranch": "main",
+  "launchFile": "/home/exedev/target/.claude/ultrapowers/run-run-1/launch.json",
+  "argsFile": "/home/exedev/target/.claude/ultrapowers/run-run-1/args.json",
+  "workflowName": "ultrapowers-run",
+  "llmDerives": [
+    "waves[][].tier on the args-file wave entries (slots pre-emitted as null; the engine reads knobs ONLY from these inline entries \u2014 never a top-level launch key)",
+    "nothing for waves[][].testCmd \u2014 the per-task command is compiler-derived from the task's Proof `Test:` paths and pre-filled on the wave entries (run-wide testCmd is driver-derived \u2014 knob or detection \u2014 and already stamped in the args file and receipt)",
+    "nothing for bootstrapCmd \u2014 driver-derived from the target's lockfile/manifest (or the --bootstrap-cmd knob) and stamped in the args file and receipt, so validation, the engine and the gate share one value",
+    "nothing for review depth \u2014 it is plan-authored (**Review:** marker), pre-filled on the args wave entries"
+  ],
+  "testCmd": "bun run test",
+  "testCmdSource": "detected:package-json-bun",
+  "bootstrapCmd": "bun install --frozen-lockfile",
+  "bootstrapCmdSource": "detected:bun-lockfile"
+}
