@@ -1,0 +1,11 @@
+Running as unit: fleet-engine-2.service; invocation ID: ea5f73ff607548eea64eb5b3434f585f
+run-main: preflight
+run-main: tiers — 3 null tier slot(s) stamped mostCapable (uniform driver fill; per-task tier is the intent document's slot, #243)
+run-main: knob-validate-failed — ultra_run.py --validate-knobs exited 1: wer-cases the rest [0.21ms]\n(pass) interior whitespace is kept as is [0.03ms]\n(pass) a tab separator survives unchanged [0.02ms]\n(pass) the empty string stays empty [0.03ms]\n\n 16 pass\n 0 fail\n 21 expect() calls\nRan 16 tests across 4 files. [9.00ms]\n"}, "perTaskTestCmds": [{"cmd": "bun test tests/count.test.ts", "runner": null, "ok": false}, {"cmd": "bun test tests/reverse.test.ts", "runner": null, "ok": false}, {"cmd": "bun test tests/palindrome.test.ts", "runner": null, "ok": false}]}
+
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=1
+Service runtime: 2.486s
+CPU time consumed: 6.382s
+Memory peak: 512.0K
+Memory swap peak: 0B
