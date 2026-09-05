@@ -1,0 +1,128 @@
+{
+  "integrationBranch": "ultra/integration-run-8",
+  "baseSha": "208c1e80ced66786acf808c3e98306638db330e4",
+  "waves": [
+    [
+      "1"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "af14848f4ea4ef4750f435d4ec48c56753c61618",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-8/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": " whitespace collapse to one space, edges are trimmed [0.02ms]\n(pass) leg (c) [M3]: reverseWords(\"\") is \"\"\n(pass) leg (c) [M3]: whitespace-only input has no words and joins to \"\"\n(pass) leg (d) [M3]: reverseWords(\"solo\") is \"solo\"\n(pass) README leg [M4]: README.md has a `reverseWords` | `src/reverse.ts` table row [0.12ms]\n(pass) README leg [M4]: the existing four rows keep their shape [0.03ms]\n(pass) module leg [M5]: the test imports from ../src/reverse and that file exports reverseWords [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines reverseWords, and there is no barrel [0.10ms]\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.04ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.01ms]\n(pass) a max of 1 leaves just the ellipsis\n(pass) a max of 0 throws an Error naming 0 [0.04ms]\n(pass) a max of -1 throws an Error naming -1 [0.02ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.05ms]\n(pass) leading, trailing and doubled hyphens vanish [0.01ms]\n(pass) a single segment comes back unchanged\n(pass) the empty string stays empty\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.08ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.02ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.04ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.05ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.09ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.03ms]\n(pass) trims hyphens from both ends [0.01ms]\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.06ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.03ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.02ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.10ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.01ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.07ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.17ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\n 95 pass\n 0 fail\n 232 expect() calls\nRan 95 tests across 11 files. [15.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .kebabCase. \\| .src/kebab\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/kebab'\" tests/kebab.test.ts && grep -qE '^export (const|function) kebabCase\\b' src/kebab.ts && ! grep -rlE '(const|function) kebabCase\\b' src --exclude=kebab.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/snake.ts && test -e src/anagram.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 52663,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 1,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "ower-cases and hyphenates [0.03ms]\n(pass) trims hyphens from both ends [0.01ms]\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.05ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.01ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.08ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.04ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.11ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.10ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.18ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is [0.02ms]\n(pass) a tab separator survives unchanged [0.01ms]\n(pass) the empty string stays empty [0.02ms]\n\n 95 pass\n 0 fail\n 232 expect() calls\nRan 95 tests across 11 files. [18.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": "ests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.05ms]\n(pass) trims hyphens from both ends\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.06ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.01ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.03ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.05ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.02ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.10ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.09ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.01ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.07ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.04ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.16ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.08ms]\n(pass) interior whitespace is kept as is [0.01ms]\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\n 84 pass\n 0 fail\n 201 expect() calls\nRan 84 tests across 10 files. [18.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "3b7ab979341adf34e014f33231d12944227461d7",
+      "branches": [
+        "1"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-8/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-8/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 3,
+      "foldCliWallTimeSec": 0.321,
+      "autoResolved": 0,
+      "resolverTranscripts": []
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 1,
+    "tasks_planned": 1,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [],
+  "blockedWaves": []
+}
