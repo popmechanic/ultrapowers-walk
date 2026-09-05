@@ -1,0 +1,55 @@
+{
+  "mode": "gate",
+  "stamp": "run-4",
+  "reportPath": "/home/exedev/target/.claude/ultrapowers/run-run-4/report.json",
+  "branch": "ultra/integration-run-4",
+  "gateCheck": {
+    "verdict": "PASS",
+    "checks": [
+      {
+        "name": "report-parse",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "clean-tree",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "wave-merges",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "head-match",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "git-verified",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "ancestry",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "name": "deliverables",
+        "ok": true,
+        "detail": ""
+      }
+    ],
+    "acks": [],
+    "repo": "/home/exedev/target"
+  },
+  "gateCheckExit": 0,
+  "acceptance": {
+    "disposition": "suite",
+    "exit": 0,
+    "output": "] the header and the seven existing rows are untouched [0.10ms]\\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.07ms]\\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.12ms]\\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.35ms]\\n(pass) [global constraint] src/index.ts is not created [0.07ms]\\n\\ntests/reverse.test.ts:\\n(pass) leg (a) [M1]: reverseWords(\\\"one two three\\\") is \\\"three two one\\\" [0.05ms]\\n(pass) leg (a) [M1]: words are not reversed character-wise and the order does change [0.05ms]\\n(pass) leg (b) [M2]: reverseWords(\\\"  a   b \\\") is \\\"b a\\\" [0.02ms]\\n(pass) leg (b) [M2]: runs of whitespace collapse to one space, edges are trimmed [0.05ms]\\n(pass) leg (c) [M3]: reverseWords(\\\"\\\") is \\\"\\\" [0.01ms]\\n(pass) leg (c) [M3]: whitespace-only input has no words and joins to \\\"\\\" [0.02ms]\\n(pass) leg (d) [M3]: reverseWords(\\\"solo\\\") is \\\"solo\\\" [0.01ms]\\n(pass) README leg [M4]: README.md has a `reverseWords` | `src/reverse.ts` table row [0.31ms]\\n(pass) README leg [M4]: the existing four rows keep their shape [0.07ms]\\n(pass) module leg [M5]: the test imports from ../src/reverse and that file exports reverseWords [0.11ms]\\n(pass) module leg [M5]: no other file under src/ defines reverseWords, and there is no barrel [0.25ms]\\n\\ntests/truncate.test.ts:\\n(pass) text no longer than max comes back unchanged [0.14ms]\\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.03ms]\\n(pass) a max of 1 leaves just the ellipsis [0.01ms]\\n(pass) a max of 0 throws an Error naming 0 [0.10ms]\\n(pass) a max of -1 throws an Error naming -1 [0.04ms]\\n\\ntests/camel.test.ts:\\n(pass) upper-cases every segment after the first [0.11ms]\\n(pass) leading, trailing and doubled hyphens vanish [0.03ms]\\n(pass) a single segment comes back unchanged [0.04ms]\\n(pass) the empty string stays empty [0.02ms]\\n\\ntests/slug.test.ts:\\n(pass) lower-cases and hyphenates [0.11ms]\\n(pass) trims hyphens from both ends [0.02ms]\\n(pass) the empty string stays empty [0.02ms]\\n\\ntests/snake.test.ts:\\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.15ms]\\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.03ms]\\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.02ms]\\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.03ms]\\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.05ms]\\n(pass) README leg [M4]: the new row keeps the three-column shape [0.21ms]\\n(pass) README leg [M4]: the seven rows already there are untouched [0.09ms]\\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.08ms]\\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.08ms]\\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.21ms]\\n\\ntests/palindrome.test.ts:\\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.11ms]\\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \\\"ab\\\" [0.04ms]\\n(pass) leg (c) [M3]: the empty string is exactly true [0.02ms]\\n(pass) leg (d) [M3]: a digit palindrome is exactly true [0.02ms]\\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.02ms]\\n(pass) [Produces] the result is a real boolean, not a truthy value [0.06ms]\\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.15ms]\\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.10ms]\\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.38ms]\\n\\ntests/title.test.ts:\\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.16ms]\\n(pass) interior whitespace is kept as is [0.03ms]\\n(pass) a tab separator survives unchanged [0.02ms]\\n(pass) the empty string stays empty [0.03ms]\\n\\n 84 pass\\n 0 fail\\n 201 expect() calls\\nRan 84 tests across 10 files. [31.00ms]\"}\n"
+  },
+  "verdict": "PASS"
+}

@@ -1,0 +1,213 @@
+{
+  "integrationBranch": "ultra/integration-run-4",
+  "baseSha": "f516d81ce0fc3dcb3bf7902653f3d10522069e60",
+  "waves": [
+    [
+      "1",
+      "2",
+      "3"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "5c381398bdfb9fb4f7a87526d149f7f9b7d88763",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-4/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    },
+    {
+      "task": "2",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "3aab5fe4c871ff8643ad52176c48b0b1dfe11485",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-4/patches/task-2.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    },
+    {
+      "task": "3",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "f8075f55f5b6e0bed5023e73b3569e9839c7bb2b",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-4/patches/task-3.patch",
+      "reviewVerdict": "clean",
+      "notes": "unverified: `tests/anagram.test.ts` appears in the patch as a new file (mode 100644, /dev/null \u2192 b/tests/anagram.test.ts), and the task Context says the exam at that path is peer-written and \"do not write at that path\". No EXAM EDITED section was supplied with this submission, so under the stated rule no exam-edit finding is raised \u2014 but the diff alone cannot distinguish a peer exam that simply post-dates BASE (and so shows as an addition when diffed against f516d81) from one the implementer authored. What would settle it: the driver's EXAM EDITED record for this task, or the peer-exam blob as it stood when the peer committed it. Substantively the file is a faithful exam for M1\u2013M5 and the Produces contract, and EXAM EVIDENCE shows all 14 tests passing at exit 0, so nothing about its content is in question.; unverified: acceptance is `suite` (\"the committed suite is the verification\"), but the only exam evidence here is `bun test tests/anagram.test.ts` in this task's isolated clone. This diff cannot settle that the whole suite still passes after the three sibling patches fold into one README \u2014 tasks 1, 2 and 3 each append a row to the same table, and this task's exam asserts `rows.length === 1` for the isAnagram row plus the exact text of the seven BASE rows, which the fold must preserve. What would settle it: a post-merge `bun test` on the folded tree. Nothing in this patch needs to change for it.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": " the README table has an isAnagram row naming src/anagram.ts [0.24ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.13ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.09ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.07ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.36ms]\n(pass) [global constraint] src/index.ts is not created [0.07ms]\n\ntests/reverse.test.ts:\n(pass) leg (a) [M1]: reverseWords(\"one two three\") is \"three two one\" [0.06ms]\n(pass) leg (a) [M1]: words are not reversed character-wise and the order does change [0.05ms]\n(pass) leg (b) [M2]: reverseWords(\"  a   b \") is \"b a\" [0.02ms]\n(pass) leg (b) [M2]: runs of whitespace collapse to one space, edges are trimmed [0.05ms]\n(pass) leg (c) [M3]: reverseWords(\"\") is \"\" [0.01ms]\n(pass) leg (c) [M3]: whitespace-only input has no words and joins to \"\" [0.01ms]\n(pass) leg (d) [M3]: reverseWords(\"solo\") is \"solo\" [0.01ms]\n(pass) README leg [M4]: README.md has a `reverseWords` | `src/reverse.ts` table row [0.28ms]\n(pass) README leg [M4]: the existing four rows keep their shape [0.10ms]\n(pass) module leg [M5]: the test imports from ../src/reverse and that file exports reverseWords [0.12ms]\n(pass) module leg [M5]: no other file under src/ defines reverseWords, and there is no barrel [0.23ms]\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.09ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.04ms]\n(pass) a max of 1 leaves just the ellipsis [0.01ms]\n(pass) a max of 0 throws an Error naming 0 [0.09ms]\n(pass) a max of -1 throws an Error naming -1 [0.05ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.12ms]\n(pass) leading, trailing and doubled hyphens vanish [0.03ms]\n(pass) a single segment comes back unchanged [0.02ms]\n(pass) the empty string stays empty [0.01ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.11ms]\n(pass) trims hyphens from both ends [0.02ms]\n(pass) the empty string stays empty [0.04ms]\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.15ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.04ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.02ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.02ms]\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.08ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.18ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.08ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.09ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.06ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.22ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.11ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.04ms]\n(pass) leg (c) [M3]: the empty string is exactly true [0.02ms]\n(pass) leg (d) [M3]: a digit palindrome is exactly true [0.01ms]\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.03ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.06ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.20ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.14ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.39ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.16ms]\n(pass) interior whitespace is kept as is [0.03ms]\n(pass) a tab separator survives unchanged [0.02ms]\n(pass) the empty string stays empty [0.03ms]\n\n 84 pass\n 0 fail\n 201 expect() calls\nRan 84 tests across 10 files. [32.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .snakeCase. \\| .src/snake\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/snake'\" tests/snake.test.ts && grep -qE '^export (const|function) snakeCase\\b' src/snake.ts && ! grep -rlE '(const|function) snakeCase\\b' src --exclude=snake.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE '^\\| .initials. \\| .src/initials\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE \"from '\\.\\./src/initials'\" tests/initials.test.ts && grep -qE '^export (const|function) initials\\b' src/initials.ts && ! grep -rlE '(const|function) initials\\b' src --exclude=initials.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE '^\\| .isAnagram. \\| .src/anagram\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE \"from '\\.\\./src/anagram'\" tests/anagram.test.ts && grep -qE '^export (const|function) isAnagram\\b' src/anagram.ts && ! grep -rlE '(const|function) isAnagram\\b' src --exclude=anagram.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/camel.ts && test -e src/title.ts && test -e src/truncate.ts && test -e src/count.ts && test -e src/reverse.ts && test -e src/palindrome.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 176042,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 3,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "pass) trims hyphens from both ends [0.03ms]\n(pass) the empty string stays empty [0.02ms]\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.15ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.04ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.03ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.02ms]\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.05ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.20ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.09ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.09ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.06ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.21ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.11ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.04ms]\n(pass) leg (c) [M3]: the empty string is exactly true [0.02ms]\n(pass) leg (d) [M3]: a digit palindrome is exactly true [0.01ms]\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.03ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.06ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.15ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.10ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.42ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.16ms]\n(pass) interior whitespace is kept as is [0.03ms]\n(pass) a tab separator survives unchanged [0.02ms]\n(pass) the empty string stays empty [0.03ms]\n\n 84 pass\n 0 fail\n 201 expect() calls\nRan 84 tests across 10 files. [32.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": "0.04ms]\n(pass) module leg [M5]: the test imports from ../src/reverse and that file exports reverseWords [0.08ms]\n(pass) module leg [M5]: no other file under src/ defines reverseWords, and there is no barrel [0.13ms]\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.06ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.02ms]\n(pass) a max of 1 leaves just the ellipsis [0.01ms]\n(pass) a max of 0 throws an Error naming 0 [0.07ms]\n(pass) a max of -1 throws an Error naming -1 [0.03ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.12ms]\n(pass) leading, trailing and doubled hyphens vanish [0.02ms]\n(pass) a single segment comes back unchanged\n(pass) the empty string stays empty\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.09ms]\n(pass) trims hyphens from both ends [0.02ms]\n(pass) the empty string stays empty\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.08ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.03ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.01ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.04ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.11ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.08ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.26ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.11ms]\n(pass) interior whitespace is kept as is [0.02ms]\n(pass) a tab separator survives unchanged [0.01ms]\n(pass) the empty string stays empty [0.02ms]\n\n 48 pass\n 0 fail\n 101 expect() calls\nRan 48 tests across 7 files. [21.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "91533ebeed5e44f5adf87aaa356e019e27bd8967",
+      "branches": [
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-4/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-4/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 5,
+      "foldCliWallTimeSec": 0.886,
+      "autoResolved": 0,
+      "resolverTranscripts": [
+        {
+          "conflict": 1,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 2,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-4/frontier/wave-1/conflict-1.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-4/frontier/wave-1/reply-1-1",
+          "status": "RESOLVED",
+          "notes": "Only one hunk in this file: frontier's snakeCase row vs incoming initials row. Both are independent table-row additions per their task bodies (isAnagram's row isn't part of this hunk), so kept both, frontier row first, incoming row appended below, preserving the three-column shape."
+        },
+        {
+          "conflict": 2,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 4,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-4/frontier/wave-1/conflict-2.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-4/frontier/wave-1/reply-2-1",
+          "status": "RESOLVED",
+          "notes": "All three sibling tasks (snakeCase, initials, isAnagram) add independent README rows under the same table with no real conflict. Frontier already folded in snakeCase and initials rows; task 3's diff appears against an older base where it saw snakeCase being 'deleted' (an artifact of diffing against a different parent state, not an actual intent to remove it). Kept all three rows, preserving frontier's existing snakeCase/initials order and appending isAnagram."
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 3,
+    "tasks_planned": 3,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 3: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 2: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [],
+  "blockedWaves": []
+}
