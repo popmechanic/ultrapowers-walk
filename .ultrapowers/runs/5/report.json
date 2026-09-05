@@ -1,0 +1,224 @@
+{
+  "integrationBranch": "ultra/integration-run-5",
+  "baseSha": "f516d81ce0fc3dcb3bf7902653f3d10522069e60",
+  "waves": [
+    [
+      "1",
+      "2",
+      "3"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "7c9ad18e46ea3352e2fa1ed9e5fecb9c0c7c29fc",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-5/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "Out-of-footprint file: the patch adds `tests/snake.impl.test.ts`, which is not among this task's FILES (`README.md`, `src/snake.ts`, `tests/snake.test.ts`). Nothing is deleted and no sibling-owned path is touched, so this is advisory only. Its five cases duplicate legs (a)\u2013(c) of the peer-written exam (`helloWorld`, `HelloWorldAgain`, `kebab-case-in`, `two words`, `already_snake`, `''`, `'solo'`) and add two the clauses do not require (`'--kebab--case--'`, `'version2Beta'`); acceptance is `suite`, so this file now runs as part of the committed suite and pins behaviour (digit-before-capital boundary, edge-separator trimming) that no Machine clause states. Either drop the file \u2014 the exam at `tests/snake.test.ts` already establishes M1\u2013M5 and passed with exit 0 \u2014 or, if the extra cases are wanted, keep only the two non-duplicated ones. This is the only footprint deviation; `src/snake.ts` and the README row are exactly as scoped.; Scope: the patch adds `tests/snake.impl.test.ts`, a path outside this task's declared FILES (`README.md`, `src/snake.ts`, `tests/snake.test.ts`). It is not a sibling-owned path and it does not edit any of the seven BASE modules or their seven BASE test files, so no global constraint is broken, and its five assertions all hold against `src/snake.ts` ('helloWorld'\u2192'hello_world', 'HelloWorldAgain'\u2192'hello_world_again', 'kebab-case-in'\u2192'kebab_case_in', 'two words'\u2192'two_words', 'already_snake' unchanged, '  two   words  '\u2192'two_words', '--kebab--case--'\u2192'kebab_case', 'version2Beta'\u2192'version2_beta', ''\u2192'', 'solo'\u2192'solo'). But four of its five tests restate assertions the peer exam `tests/snake.test.ts` already makes for legs (a)-(c), so under `suite` acceptance it adds duplicate grading surface for the same clauses. Only the third and fourth tests (doubled/edge separators, digit-before-upper boundary) assert anything the exam does not \u2014 both are behaviours the Context paragraph describes but no Machine clause pins. Suggest deleting the file, or keeping only those two cases if the extra coverage is wanted.; unverified: the global constraint \"no helper imports from another helper's module, and there is no barrel file (`src/index.ts` is not created)\" carries no `Check:` the driver ran. From the diff alone it holds \u2014 `src/snake.ts` imports nothing, no `src/index.ts` is created, and no dependency is added to `package.json` (unmodified). What would settle it across the merged tree is a repo-wide check after the three sibling patches fold, e.g. `! test -e src/index.ts && ! grep -rn \"from '\\\\./\" src`.; concern: out-of-FILES: tests/snake.impl.test.ts \u2014 my own red\u2192green tests. tests/snake.test.ts is reserved for the peer exam, so my tests had to live at a different path; this file is additive and does not touch any BASE module or test.; concern: The declared TEST COMMAND `bun test tests/snake.test.ts` cannot run in my tree, since that path is the peer's exam and does not exist here yet. I verified with `bun test` (whole suite) and `bun test tests/snake.impl.test.ts` instead.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    },
+    {
+      "task": "2",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "b8bcab7916acf13b5aebf2b0fc9764c10828007e",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-5/patches/task-2.patch",
+      "reviewVerdict": "clean",
+      "notes": "concern: out-of-FILES: added `tests/initials.impl.test.ts` (107 lines, new file). FILES declares `tests/initials.test.ts`, but that path is the Proof's `Test:` line and is reserved for the peer exam the driver overlays, so my own red\u2192green tests had to live elsewhere. Nothing outside FILES was deleted or modified \u2014 only this one addition. Final footprint vs BASE: README.md +1, src/initials.ts +10, tests/initials.impl.test.ts +107.; concern: The stated TEST COMMAND `bun test tests/initials.test.ts` cannot pass in my tree as delivered, because that file does not exist here by design \u2014 the peer writes it and the driver lays it over my tree. I ran `bun test tests/initials.impl.test.ts` (11 pass) and the whole suite (59 pass) instead.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 1,
+      "examEdited": []
+    },
+    {
+      "task": "3",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "e7b105c24bce557d3f05b275e2f395c1c1a08efa",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-5/patches/task-3.patch",
+      "reviewVerdict": "clean",
+      "notes": "Out-of-footprint file: the diff creates `tests/anagram.impl.test.ts`, a path outside this task's FILES (`README.md`, `src/anagram.ts`, `tests/anagram.test.ts`). It is a near-verbatim duplicate of the peer-written exam `tests/anagram.test.ts`: the same `repoRoot`/`readText`/`tsFilesUnderSrc` helpers copy-pasted, the same README-row and M5 module assertions, and legs (a)/(b)/(c) re-asserted with a subset of the same cases. Acceptance is `suite`, so this duplicate runs on every `bun test` and gives the same signal twice while creating a second place the README's seven BASE rows are pinned by literal string \u2014 a later legitimate README edit would now break two files instead of one. It also introduces `a ?? ''` (line 89) only to work around an untyped `string[][]` literal that the exam types properly as `Array<[string, string]>`. Nothing in the Claim, the Machine clauses M1\u2013M5, or the Proof's legs needs it: the exam alone covers every leg, and EXAM EVIDENCE shows all 9 of its tests passing (`exit 0`). Fix: delete `tests/anagram.impl.test.ts`. This is minor, not blocking \u2014 modifying a path outside FILES is a footprint note, no BASE file is deleted, no SIBLING FILES path is touched, and the file does not weaken any leg.; unverified: the Context clause \"two sibling tasks add their own rows to the same table in the same run \u2014 that is expected, and the merge folds the rows\" cannot be settled from this patch alone. The diff appends exactly one row at the end of README.md and leaves the seven BASE rows and the `| Function | Module | Does |` header byte-identical, which is the correct single-task shape, and the exam pins all seven BASE rows plus the header (tests/anagram.test.ts:224-238). But whether the three sibling appends fold cleanly into one table is a property of the merge, not of this tree. What would settle it: after the wave merges, `grep -c '^| ' README.md` shows 10 rows plus the header/separator, with one row each for `snakeCase`, `initials`, and `isAnagram` and no duplicated header. Graded minor so it cannot stop a merge it cannot judge.; Out-of-footprint file: the patch creates `tests/anagram.impl.test.ts`, a path outside this task's FILES (`README.md`, `src/anagram.ts`, `tests/anagram.test.ts`). It is a near-verbatim duplicate of the peer exam `tests/anagram.test.ts` \u2014 the same `repoRoot`/`readText`/`tsFilesUnderSrc` helpers copy-pasted, the same README-row regex, the same M1\u2013M5 assertions with slightly weaker coverage (it drops the `'abc'`/`'abd'` length-only probe and the `'LISTEN'`/`'listen1'` normalisation probes). Since acceptance is `suite`, this file ships into the committed suite as a second, redundant grader of the same clauses, and any future change to the module now has to be reflected in two hand-maintained copies of the same file-walking logic. Its assertions do hold against `src/anagram.ts` as written (the driver's exam evidence covers the identical assertions), so nothing is broken \u2014 but the fix is to delete `tests/anagram.impl.test.ts` and let the peer exam at `tests/anagram.test.ts` be the single grader.; unverified: `tests/anagram.impl.test.ts` was not executed by the driver \u2014 EXAM EVIDENCE ran only `bun test tests/anagram.test.ts` (9 pass), and the constraint checks do not execute tests. Reading it, every assertion follows from `src/anagram.ts` and the README row in this same patch, and the merge only adds sibling rows/modules that cannot break its README or `src/` walk assertions, so I expect it green; a full `bun test` on the merged tree would settle it. Deleting the file per the previous finding removes the question entirely.; concern: out-of-FILES: tests/anagram.impl.test.ts \u2014 my own red\u2192green tests live here because tests/anagram.test.ts is reserved for the peer-written exam. It is additive, passes on the committed tree, and no BASE file was edited.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": "y value [0.10ms]\n(pass) README leg [M4]: the README table has a row for isAnagram | src/anagram.ts [0.08ms]\n(pass) module leg [M5]: src/anagram.ts exports isAnagram at top level [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isAnagram [0.25ms]\n\ntests/reverse.test.ts:\n(pass) leg (a) [M1]: reverseWords(\"one two three\") is \"three two one\" [0.04ms]\n(pass) leg (a) [M1]: words are not reversed character-wise and the order does change [0.05ms]\n(pass) leg (b) [M2]: reverseWords(\"  a   b \") is \"b a\"\n(pass) leg (b) [M2]: runs of whitespace collapse to one space, edges are trimmed [0.03ms]\n(pass) leg (c) [M3]: reverseWords(\"\") is \"\"\n(pass) leg (c) [M3]: whitespace-only input has no words and joins to \"\"\n(pass) leg (d) [M3]: reverseWords(\"solo\") is \"solo\"\n(pass) README leg [M4]: README.md has a `reverseWords` | `src/reverse.ts` table row [0.18ms]\n(pass) README leg [M4]: the existing four rows keep their shape [0.05ms]\n(pass) module leg [M5]: the test imports from ../src/reverse and that file exports reverseWords [0.08ms]\n(pass) module leg [M5]: no other file under src/ defines reverseWords, and there is no barrel [0.15ms]\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.06ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.02ms]\n(pass) a max of 1 leaves just the ellipsis [0.01ms]\n(pass) a max of 0 throws an Error naming 0 [0.07ms]\n(pass) a max of -1 throws an Error naming -1 [0.04ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.08ms]\n(pass) leading, trailing and doubled hyphens vanish [0.02ms]\n(pass) a single segment comes back unchanged\n(pass) the empty string stays empty\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.07ms]\n(pass) trims hyphens from both ends [0.01ms]\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: snakeCase('helloWorld') is 'hello_world' [0.02ms]\n(pass) leg (a) [M1]: snakeCase('HelloWorldAgain') is 'hello_world_again' [0.01ms]\n(pass) leg (b) [M2]: snakeCase('kebab-case-in') is 'kebab_case_in' [0.01ms]\n(pass) leg (b) [M2]: snakeCase('two words') is 'two_words' [0.01ms]\n(pass) leg (b) [M2]: a run of whitespace is one boundary, not several\n(pass) leg (b) [M2]: snakeCase('already_snake') is 'already_snake'\n(pass) leg (c) [M3]: snakeCase('') is ''\n(pass) leg (c) [M3]: snakeCase('solo') is 'solo' [0.01ms]\n(pass) leg (d) [M4]: README.md has a table row for snakeCase / src/snake.ts [0.09ms]\n(pass) leg (d) [M4]: that row has the same three-column shape as the existing rows [0.13ms]\n(pass) leg (e) [M5]: src/snake.ts exports snakeCase at top level [0.05ms]\n(pass) leg (e) [M5]: this test imports snakeCase from '../src/snake' [0.04ms]\n(pass) leg (e) [M5]: the import is the produced contract snakeCase(text: string) -> string [0.02ms]\n(pass) leg (e) [M5]: no other module under src/ defines snakeCase [0.31ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.09ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true [0.04ms]\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.02ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.04ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.11ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.08ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.25ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.11ms]\n(pass) interior whitespace is kept as is [0.02ms]\n(pass) a tab separator survives unchanged [0.01ms]\n(pass) the empty string stays empty [0.02ms]\n\n 95 pass\n 0 fail\n 218 expect() calls\nRan 95 tests across 12 files. [23.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .snakeCase. \\| .src/snake\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/snake'\" tests/snake.test.ts && grep -qE '^export (const|function) snakeCase\\b' src/snake.ts && ! grep -rlE '(const|function) snakeCase\\b' src --exclude=snake.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE '^\\| .initials. \\| .src/initials\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE \"from '\\.\\./src/initials'\" tests/initials.test.ts && grep -qE '^export (const|function) initials\\b' src/initials.ts && ! grep -rlE '(const|function) initials\\b' src --exclude=initials.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE '^\\| .isAnagram. \\| .src/anagram\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE \"from '\\.\\./src/anagram'\" tests/anagram.test.ts && grep -qE '^export (const|function) isAnagram\\b' src/anagram.ts && ! grep -rlE '(const|function) isAnagram\\b' src --exclude=anagram.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/camel.ts && test -e src/title.ts && test -e src/truncate.ts && test -e src/count.ts && test -e src/reverse.ts && test -e src/palindrome.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 227044,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 3,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "1]: snakeCase('HelloWorldAgain') is 'hello_world_again'\n(pass) leg (b) [M2]: snakeCase('kebab-case-in') is 'kebab_case_in'\n(pass) leg (b) [M2]: snakeCase('two words') is 'two_words'\n(pass) leg (b) [M2]: a run of whitespace is one boundary, not several\n(pass) leg (b) [M2]: snakeCase('already_snake') is 'already_snake'\n(pass) leg (c) [M3]: snakeCase('') is ''\n(pass) leg (c) [M3]: snakeCase('solo') is 'solo'\n(pass) leg (d) [M4]: README.md has a table row for snakeCase / src/snake.ts [0.05ms]\n(pass) leg (d) [M4]: that row has the same three-column shape as the existing rows [0.08ms]\n(pass) leg (e) [M5]: src/snake.ts exports snakeCase at top level [0.03ms]\n(pass) leg (e) [M5]: this test imports snakeCase from '../src/snake' [0.04ms]\n(pass) leg (e) [M5]: the import is the produced contract snakeCase(text: string) -> string [0.01ms]\n(pass) leg (e) [M5]: no other module under src/ defines snakeCase [0.20ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.01ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.01ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.04ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.07ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.15ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is [0.01ms]\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\n 95 pass\n 0 fail\n 218 expect() calls\nRan 95 tests across 12 files. [20.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": "rts from ../src/reverse and that file exports reverseWords [0.13ms]\n(pass) module leg [M5]: no other file under src/ defines reverseWords, and there is no barrel [0.23ms]\n\ntests/truncate.test.ts:\n(pass) text no longer than max comes back unchanged [0.09ms]\n(pass) a cut is max-1 characters plus one ellipsis, exactly max long [0.03ms]\n(pass) a max of 1 leaves just the ellipsis [0.01ms]\n(pass) a max of 0 throws an Error naming 0 [0.11ms]\n(pass) a max of -1 throws an Error naming -1 [0.05ms]\n\ntests/camel.test.ts:\n(pass) upper-cases every segment after the first [0.18ms]\n(pass) leading, trailing and doubled hyphens vanish [0.03ms]\n(pass) a single segment comes back unchanged [0.02ms]\n(pass) the empty string stays empty [0.01ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.13ms]\n(pass) trims hyphens from both ends [0.02ms]\n(pass) the empty string stays empty [0.01ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.14ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.04ms]\n(pass) leg (c) [M3]: the empty string is exactly true [0.01ms]\n(pass) leg (d) [M3]: a digit palindrome is exactly true [0.01ms]\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.02ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.09ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.17ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.10ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.41ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.16ms]\n(pass) interior whitespace is kept as is [0.03ms]\n(pass) a tab separator survives unchanged [0.02ms]\n(pass) the empty string stays empty [0.03ms]\n\n 48 pass\n 0 fail\n 101 expect() calls\nRan 48 tests across 7 files. [26.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "468f84ed609f69d22bd0eff1f4f3cc063d9b6cc0",
+      "branches": [
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-5/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-5/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 5,
+      "foldCliWallTimeSec": 0.95,
+      "autoResolved": 0,
+      "resolverTranscripts": [
+        {
+          "conflict": 1,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 2,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-5/frontier/wave-1/conflict-1.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-5/frontier/wave-1/reply-1-1",
+          "status": "RESOLVED",
+          "notes": "Both sides add independent, compatible README rows (task 2 `initials`, task 1/frontier `snakeCase`). Kept both rows, frontier row last to match arrival order; no conflict of intent."
+        },
+        {
+          "conflict": 2,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 4,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-5/frontier/wave-1/conflict-2.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-5/frontier/wave-1/reply-2-1",
+          "status": "RESOLVED",
+          "notes": "Simple additive table-row conflict: all three incoming rows (initials, isAnagram, snakeCase) are compatible and independent, so all are kept, in the same order they appeared in the conflict markers."
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 3,
+    "tasks_planned": 3,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 2: out-of-FILES: added `tests/initials.impl.test.ts` (107 lines, new file). FILES declares `tests/initials.test.ts`, but that path is the Proof's `Test:` line and is reserved for the peer exam the driver overlays, so my own red\u2192green tests had to live elsewhere. Nothing outside FILES was deleted or modified \u2014 only this one addition. Final footprint vs BASE: README.md +1, src/initials.ts +10, tests/initials.impl.test.ts +107.",
+    "task 2: The stated TEST COMMAND `bun test tests/initials.test.ts` cannot pass in my tree as delivered, because that file does not exist here by design \u2014 the peer writes it and the driver lays it over my tree. I ran `bun test tests/initials.impl.test.ts` (11 pass) and the whole suite (59 pass) instead.",
+    "task 2: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 2: the driver's pre-review pass was red (the Global Constraints Check: command failed: ! grep -rnE 'as any|: any\\b|![.)]' src tests \u2014 exit 1) \u2014 one repair round before any referee read the patch",
+    "task 3: out-of-FILES: tests/anagram.impl.test.ts \u2014 my own red\u2192green tests live here because tests/anagram.test.ts is reserved for the peer-written exam. It is additive, passes on the committed tree, and no BASE file was edited.",
+    "task 3: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 1: out-of-FILES: tests/snake.impl.test.ts \u2014 my own red\u2192green tests. tests/snake.test.ts is reserved for the peer exam, so my tests had to live at a different path; this file is additive and does not touch any BASE module or test.",
+    "task 1: The declared TEST COMMAND `bun test tests/snake.test.ts` cannot run in my tree, since that path is the peer's exam and does not exist here yet. I verified with `bun test` (whole suite) and `bun test tests/snake.impl.test.ts` instead.",
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [
+    {
+      "severity": "minor",
+      "detail": "Undeclared test artifacts beyond the Files slot: `tests/snake.impl.test.ts` (Task 1, Files declares only `Test: tests/snake.test.ts`) and `tests/anagram.impl.test.ts` (Task 3, Files declares only `Test: tests/anagram.test.ts`) are both present in the integrated tree. They respect the peer-exam prohibition (they do not write at the exam path) and violate no global constraint \u2014 no BASE module or test is edited, no dependency added, no barrel \u2014 but they duplicate the peer exams' coverage almost verbatim (`tests/anagram.impl.test.ts:26-85` restates legs (a)/(b)/(c), M4 and M5 of `tests/anagram.test.ts`) and the run is asymmetric: Task 2 landed no equivalent file. Worth an issue for tree hygiene, not worth stopping the merge."
+    }
+  ],
+  "blockedWaves": []
+}
