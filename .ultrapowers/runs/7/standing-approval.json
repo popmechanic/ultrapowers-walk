@@ -1,0 +1,10 @@
+{
+  "grantedAt": "launch directive",
+  "instruction": "node fleet/run-main.mjs /home/exedev/plans/run-7.md run-7 (deterministic driver; #243 pre-authorization)",
+  "ackList": [
+    {
+      "type": "deferred:runtime",
+      "detail": "Global constraint: \"The ten modules at BASE under `src/` and their ten test files under `tests/` are not edited\" (the ten BASE `tests/*.test.ts` files) — Constraint check #2 only asserts the ten `src/` modules still exist (`test -e`), not that they or their ten test files are byte-identical to BASE 208c1e8. Confirming that needs a blob/diff comparison against BASE, and Bash was denied in this environment, so I could not run it. Indirect evidence is consistent with the constraint holding: the driver's suite passes, all ten BASE README rows are present verbatim at README.md:7-16 with the three-column header intact, and the three new modules import nothing. Recommend the gate confirm `git diff --stat 208c1e8..HEAD` touches only README.md and the six new files. [structural false-green: sandbox could not execute it against the target]"
+    }
+  ]
+}
