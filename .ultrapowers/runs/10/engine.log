@@ -1,0 +1,15 @@
+Running as unit: fleet-engine-10.service
+run-main: preflight
+run-main: tiers — 1 null tier slot(s) stamped mostCapable (uniform driver fill; per-task tier is the intent document's slot, #243)
+run-main: provision — BASE 2ae4528eac803773a52567729c66af2ecc746206; 1 task clone(s) + integration
+run-main: engine — waves 1, width bound 12, patch input armed
+run-main: engine-done — report saved
+run-main: finalize
+run-main: gate
+run-main: critic-blocking — 1 blocking completeness finding(s): Task 1 (`countVowels`), Claim slot — unmet in the integrated tree. The operator's own sentence is "I can import countVowels from its own module and see 'Ada Lovelace' become 4" (plan /home/exedev/plans/run-10.md:5-6, quoted from walk issue #9, and restated as M1). The integrated implementation at src/vowels.ts:7 is `(text.match(/[aeiou]/gi) ?? []).length`, so `countVowels('Ada Lovelace')` is 6, not 4: the string A-d-a-space-L-o-v-e-l-a-c-e matches A, a, o, e, a, e — six occurrences. The headline observable of the Claim is therefore not delivered. This is a contract defect, not an implementation slip: M1's own rule ("the vowels are a, e, i, o, u and nothing else, counted with multiplicity") plus M2 ("case is ignored") force 6, the Context's named shape `match(/[aeiou]/gi)` forces 6, and 4 arises only from a case-sensitive distinct-character count ({A, a, o, e}) that M1 and M2 each forbid — so no implementation can satisfy both the pinned literal and the rule it is stated with. The peer exam saw this and deliberately declined to assert it (tests/vowels.test.ts:15-30 asserts only `not.toBe(3)` and `not.toBe(5)` for this input), so the green suite and the two `Run:` legs, which check the README row and the module wiring only, are not evidence for the Claim's literal. The run cannot be reported as showing 'Ada Lovelace' become 4; the plan Claim and issue #9's sentence need the operator's correction (either the literal becomes 6 or the counting rule changes) before merge. — critic-block.json is the terminal artifact
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=1
+Service runtime: 5min 40.774s
+CPU time consumed: 1min 2.118s
+Memory peak: 3.7M
+Memory swap peak: 0B

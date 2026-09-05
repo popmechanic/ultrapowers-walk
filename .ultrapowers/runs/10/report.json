@@ -1,0 +1,153 @@
+{
+  "integrationBranch": "ultra/integration-run-10",
+  "baseSha": "2ae4528eac803773a52567729c66af2ecc746206",
+  "waves": [
+    [
+      "1"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "a157431e7ec7e63f2d890db7d4c11db088eee633",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-10/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "The exam that grades this submission is self-authored. The Context states \"This task is `Review: peer`: a peer writes `tests/vowels.test.ts` against the clauses above ... so do not write at that path\", yet the patch creates tests/vowels.test.ts as a new file (new file mode, absent at BASE) and no EXAM EDITED was reported \u2014 i.e. no peer exam ever landed, so there was nothing to edit and nothing to grade against unless the implementer wrote it. I am not treating this as implementer scope creep: tests/vowels.test.ts is inside the declared FILES, and deleting the file would leave every leg unverified rather than fixing anything. But it is the mechanism by which leg (a)'s pinned value was replaced with surrogate negative/invariance assertions, so the operator should confirm the peer-exam step actually ran for this task before treating the passing suite as independent verification.; tests/vowels.test.ts:40 asserts `expect(countVowels('rhythm')).not.toBe(6)` with the comment \"not a consonant count\". 6 is the character length of 'rhythm', not its consonant count (which is also 6 only by coincidence of the string having no vowels), and the surrounding `toBe(0)` on the previous line already makes the assertion vacuous \u2014 it cannot fail unless the line above it already has. Harmless, but it is a test line that verifies nothing; drop it or replace it with a case that actually distinguishes the two readings, e.g. `expect(countVowels('rhythms')).toBe(0)`.; plan-defect: plan-defect: the task's own pinned literal is unsatisfiable, so the Claim is not established by the exam. Claim, Machine M1 and Proof leg (a) all pin `countVowels('Ada Lovelace')` to `4`. Under M1's own rule (vowels are exactly a/e/i/o/u, counted with multiplicity) plus M2 (case ignored), 'Ada Lovelace' matches A, a, o, e, a, e = 6; the Context's own named shape, `match(/[aeiou]/gi)` and return the match count, also yields 6. 3 is the distinct-vowel count and 5 the consonant count; only a case-sensitive distinct-character count ({A,a,o,e}) gives 4, and M1 and M2 each forbid that. src/vowels.ts:22 implements the Context's shape and returns 6 \u2014 the divergence is correct and is disclosed at tests/vowels.test.ts:43-54, so it is lawful and I am not asking the implementer to change it. But the consequence is that no test in the exam asserts leg (a)'s positive value at all: tests/vowels.test.ts:55-58 asserts only `not.toBe(3)` / `not.toBe(5)`, and tests/vowels.test.ts:63-67 asserts only case/space invariance. Leg (a)'s pinned equality therefore has no evidence in the diff, and no edit inside this task's FILES can supply it \u2014 any implementation that returns 4 for that input fails M2 and the invariance assertions the exam already carries. The path that has to change is the task text itself (Claim, Machine M1, and Proof leg (a): `4` \u2192 `6`); actor `plan`, so this parks at the gate for the operator to settle rather than routing to a fix round. Once the operator settles the literal, the exam should gain the positive pin, e.g. `expect(countVowels('Ada Lovelace')).toBe(6)` alongside the existing negatives at tests/vowels.test.ts:55-58. Everything else in the submission is clean: M2, M3, M4, M5, the Produces contract, the README three-column shape and the no-barrel/no-`any` constraints are each pinned by a passing test or a driver check.; plan-defect: plan-defect: the Claim and Machine clause M1 pin `countVowels('Ada Lovelace')` to `4`, and Proof leg (a) grades that literal \u2014 but no implementation obeying M1/M2 can produce it, so the Claim is not established by this submission and cannot be by any edit inside this task's FILES. 'Ada Lovelace' is A,d,a,' ',L,o,v,e,l,a,c,e; the vowels a,e,i,o,u counted with multiplicity, case ignored (M2), are A,a,o,e,a,e = 6. The Context's own named shape, `match(/[aeiou]/gi)` and return the match count, also yields 6. The competing readings the leg itself names give 3 (distinct vowels) and 5 (consonants); only a case-SENSITIVE distinct-character count {A,a,o,e} gives 4, which M1 and M2 each forbid. The submitted `src/vowels.ts:7` implements the Context's shape exactly and returns 6; the peer exam (tests/vowels.test.ts:55-67) discloses this in a referee note and substitutes what every reading of leg (a) agrees on \u2014 not-3, not-5, and the M1/M2/M3 invariances on that very input (case-folding equality and the space being ignored, which also defeats a hard-coded special case). That substitution is a lawful, disclosed divergence and covers the rest of leg (a); every other clause (M1 'rhythm'/multiplicity, M2, M3, M4, M5, Produces) is asserted by name and passes under EXAM EVIDENCE, and both `Run:` greps exit 0. What remains unsettled is the pinned value itself, and the defect is in the task's own text, so the operator has to settle it: either the pin becomes `6` (consistent with M1's stated rule and the Context's shape, no code change needed), or the intended input string was some other one \u2014 in which case M1, the Claim, and Proof leg (a) all have to name it together.; concern: plan-defect: M1/Proof leg (a) asserts `countVowels('Ada Lovelace')` equals `4`, but 'Ada Lovelace' contains 6 vowels (A, a, o, e, a, e). That literal contradicts the rest of the same clause ('the vowels are a, e, i, o, u and nothing else, counted with multiplicity'), M2's case-insensitivity, and the Context's own prescribed shape ('match /[aeiou]/gi and return the match count'), which yields 6. No rule satisfies 4 for 'Ada Lovelace' while also giving 5 for 'AEIOU'/'aeiou' and 0 for 'rhythm'/'y' \u2014 distinct-vowel count is 3, consonant count is 5, syllable count breaks M2. I implemented the self-consistent definitional semantics (case-insensitive count with multiplicity), so `countVowels('Ada Lovelace')` returns 6. Verified actual outputs: 'Ada Lovelace'=6, 'rhythm'=0, 'AEIOU'=5, 'aeiou'=5, 'y'=0, ''=0, '123 !?'=0 \u2014 every clause holds except the miscounted literal 4.; concern: The peer's exam at `tests/vowels.test.ts` will likely assert 4 for 'Ada Lovelace' straight from the task text and therefore fail against this implementation. The failure is the defective expected value, not the helper; the fix is to correct the literal to 6 in the exam (or in issue #9's claim), which I did not do since that path is reserved for the peer.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": "(c) [M3]: a whitespace-only string has no words and joins to \"\"\n(pass) leg (c) [M3]: initials(\"solo\") is \"S\"\n(pass) [Produces] initials returns a string [0.03ms]\n(pass) README leg [M4]: README.md has an `initials` | `src/initials.ts` table row [0.14ms]\n(pass) README leg [M4]: the header and the seven existing rows are untouched [0.06ms]\n(pass) module leg [M5]: the exam imports from ../src/initials and that file exports initials [0.09ms]\n(pass) module leg [M5]: no other file under src/ defines initials, and there is no barrel [0.16ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.10ms]\n(pass) interior whitespace is kept as is [0.01ms]\n(pass) a tab separator survives unchanged [0.03ms]\n(pass) the empty string stays empty [0.02ms]\n\ntests/vowels.test.ts:\n(pass) leg (a) [M1] rhythm counts 0 [0.06ms]\n(pass) leg (a) [M1] Ada Lovelace counts neither the distinct vowels nor the consonants [0.02ms]\n(pass) leg (a) [M1] the Ada Lovelace count obeys the rule, not a special case [0.02ms]\n(pass) leg (a) [M1] repeated vowels count with multiplicity\n(pass) leg (b) [M2] AEIOU and aeiou both count 5\n(pass) leg (b) [M2] y is never a vowel [0.01ms]\n(pass) leg (c) [M3] the empty string and a string of digits and punctuation count 0 [0.01ms]\n(pass) [Produces] countVowels returns a number [0.01ms]\n(pass) README leg [M4] the README table has a countVowels row naming src/vowels.ts [0.12ms]\n(pass) README leg [M4] the existing table header and rows are untouched [0.08ms]\n(pass) README leg [M4] the countVowels row is added under the last existing row [0.12ms]\n(pass) module leg [M5] src/vowels.ts exports countVowels at top level [0.10ms]\n(pass) module leg [M5] the exam imports countVowels from ../src/vowels [0.04ms]\n(pass) module leg [M5] no other module under src/ defines countVowels [0.16ms]\n(pass) [global constraint] src/index.ts is not created [0.03ms]\n\ntests/anagram.test.ts:\n(pass) leg (a) [M1] ('listen','silent') is exactly true and ('listen','silence') is exactly false [0.08ms]\n(pass) leg (a) [M1] length-only and set-only comparisons are rejected [0.02ms]\n(pass) leg (b) [M2] ('Dormitory','dirty room!') is exactly true \u2014 case and non-letters ignored [0.01ms]\n(pass) leg (b) [M2] ('aab','abb') is exactly false \u2014 letter counts matter, not the set [0.01ms]\n(pass) leg (b) [M2] case alone is ignored, and non-letters alone are ignored [0.04ms]\n(pass) leg (c) [M3] ('','') is exactly true\n(pass) leg (c) [M3] ('a','') is exactly false [0.01ms]\n(pass) [Produces] isAnagram returns a real boolean [0.07ms]\n(pass) README leg [M4] the README table has an isAnagram row naming src/anagram.ts [0.15ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.07ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.05ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.04ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.28ms]\n(pass) [global constraint] src/index.ts is not created [0.04ms]\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.09ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.01ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.03ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.08ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.07ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.05ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.06ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.04ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.14ms]\n\n 110 pass\n 0 fail\n 274 expect() calls\nRan 110 tests across 12 files. [24.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .countVowels. \\| .src/vowels\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/vowels'\" tests/vowels.test.ts && grep -qE '^export (const|function) countVowels\\b' src/vowels.ts && ! grep -rlE '(const|function) countVowels\\b' src --exclude=vowels.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/snake.ts && test -e src/kebab.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 155241,
+    "blockingFindings": 2,
+    "blockingPerReviewerMinute": 0.7729916710147449,
+    "pairRounds": 1,
+    "r2MarginalBlocking": 1
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "n','silent') is exactly true and ('listen','silence') is exactly false [0.05ms]\n(pass) leg (a) [M1] length-only and set-only comparisons are rejected [0.01ms]\n(pass) leg (b) [M2] ('Dormitory','dirty room!') is exactly true \u2014 case and non-letters ignored\n(pass) leg (b) [M2] ('aab','abb') is exactly false \u2014 letter counts matter, not the set\n(pass) leg (b) [M2] case alone is ignored, and non-letters alone are ignored [0.02ms]\n(pass) leg (c) [M3] ('','') is exactly true\n(pass) leg (c) [M3] ('a','') is exactly false\n(pass) [Produces] isAnagram returns a real boolean [0.05ms]\n(pass) README leg [M4] the README table has an isAnagram row naming src/anagram.ts [0.09ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.04ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.03ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.03ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.18ms]\n(pass) [global constraint] src/index.ts is not created [0.03ms]\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.05ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.05ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.03ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.03ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.09ms]\n\n 110 pass\n 0 fail\n 274 expect() calls\nRan 110 tests across 12 files. [16.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": "ent') is exactly true and ('listen','silence') is exactly false [0.05ms]\n(pass) leg (a) [M1] length-only and set-only comparisons are rejected [0.02ms]\n(pass) leg (b) [M2] ('Dormitory','dirty room!') is exactly true \u2014 case and non-letters ignored [0.01ms]\n(pass) leg (b) [M2] ('aab','abb') is exactly false \u2014 letter counts matter, not the set\n(pass) leg (b) [M2] case alone is ignored, and non-letters alone are ignored [0.02ms]\n(pass) leg (c) [M3] ('','') is exactly true\n(pass) leg (c) [M3] ('a','') is exactly false\n(pass) [Produces] isAnagram returns a real boolean [0.04ms]\n(pass) README leg [M4] the README table has an isAnagram row naming src/anagram.ts [0.10ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.04ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.03ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.03ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.14ms]\n(pass) [global constraint] src/index.ts is not created [0.03ms]\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.04ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.01ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.06ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.03ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.05ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.14ms]\n\n 95 pass\n 0 fail\n 232 expect() calls\nRan 95 tests across 11 files. [14.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "7e0d32aa3d8832bd047c9c3bd294105b1a1303c4",
+      "branches": [
+        "1"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-10/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-10/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 3,
+      "foldCliWallTimeSec": 0.35500000000000004,
+      "autoResolved": 0,
+      "resolverTranscripts": []
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 1,
+    "tasks_planned": 1,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [
+    {
+      "deliverable": "1",
+      "reason": "plan-defect",
+      "why": "plan-defect: the task's own pinned literal is unsatisfiable, so the Claim is not established by the exam. Claim, Machine M1 and Proof leg (a) all pin `countVowels('Ada Lovelace')` to `4`. Under M1's own rule (vowels are exactly a/e/i/o/u, counted with multiplicity) plus M2 (case ignored), 'Ada Lovelace' matches A, a, o, e, a, e = 6; the Context's own named shape, `match(/[aeiou]/gi)` and return the match count, also yields 6. 3 is the distinct-vowel count and 5 the consonant count; only a case-sensitive distinct-character count ({A,a,o,e}) gives 4, and M1 and M2 each forbid that. src/vowels.ts:22 implements the Context's shape and returns 6 \u2014 the divergence is correct and is disclosed at tests/vowels.test.ts:43-54, so it is lawful and I am not asking the implementer to change it. But the consequence is that no test in the exam asserts leg (a)'s positive value at all: tests/vowels.test.ts:55-58 asserts only `not.toBe(3)` / `not.toBe(5)`, and tests/vowels.test.ts:63-67 asserts only case/space invariance. Leg (a)'s pinned equality therefore has no evidence in the diff, and no edit inside this task's FILES can supply it \u2014 any implementation that returns 4 for that input fails M2 and the invariance assertions the exam already carries. The path that has to change is the task text itself (Claim, Machine M1, and Proof leg (a): `4` \u2192 `6`); actor `plan`, so this parks at the gate for the operator to settle rather than routing to a fix round. Once the operator settles the literal, the exam should gain the positive pin, e.g. `expect(countVowels('Ada Lovelace')).toBe(6)` alongside the existing negatives at tests/vowels.test.ts:55-58. Everything else in the submission is clean: M2, M3, M4, M5, the Produces contract, the README three-column shape and the no-barrel/no-`any` constraints are each pinned by a passing test or a driver check."
+    },
+    {
+      "deliverable": "1",
+      "reason": "plan-defect",
+      "why": "plan-defect: the Claim and Machine clause M1 pin `countVowels('Ada Lovelace')` to `4`, and Proof leg (a) grades that literal \u2014 but no implementation obeying M1/M2 can produce it, so the Claim is not established by this submission and cannot be by any edit inside this task's FILES. 'Ada Lovelace' is A,d,a,' ',L,o,v,e,l,a,c,e; the vowels a,e,i,o,u counted with multiplicity, case ignored (M2), are A,a,o,e,a,e = 6. The Context's own named shape, `match(/[aeiou]/gi)` and return the match count, also yields 6. The competing readings the leg itself names give 3 (distinct vowels) and 5 (consonants); only a case-SENSITIVE distinct-character count {A,a,o,e} gives 4, which M1 and M2 each forbid. The submitted `src/vowels.ts:7` implements the Context's shape exactly and returns 6; the peer exam (tests/vowels.test.ts:55-67) discloses this in a referee note and substitutes what every reading of leg (a) agrees on \u2014 not-3, not-5, and the M1/M2/M3 invariances on that very input (case-folding equality and the space being ignored, which also defeats a hard-coded special case). That substitution is a lawful, disclosed divergence and covers the rest of leg (a); every other clause (M1 'rhythm'/multiplicity, M2, M3, M4, M5, Produces) is asserted by name and passes under EXAM EVIDENCE, and both `Run:` greps exit 0. What remains unsettled is the pinned value itself, and the defect is in the task's own text, so the operator has to settle it: either the pin becomes `6` (consistent with M1's stated rule and the Context's shape, no code change needed), or the intended input string was some other one \u2014 in which case M1, the Claim, and Proof leg (a) all have to name it together."
+    }
+  ],
+  "judgmentCalls": [
+    "task 1: plan-defect: M1/Proof leg (a) asserts `countVowels('Ada Lovelace')` equals `4`, but 'Ada Lovelace' contains 6 vowels (A, a, o, e, a, e). That literal contradicts the rest of the same clause ('the vowels are a, e, i, o, u and nothing else, counted with multiplicity'), M2's case-insensitivity, and the Context's own prescribed shape ('match /[aeiou]/gi and return the match count'), which yields 6. No rule satisfies 4 for 'Ada Lovelace' while also giving 5 for 'AEIOU'/'aeiou' and 0 for 'rhythm'/'y' \u2014 distinct-vowel count is 3, consonant count is 5, syllable count breaks M2. I implemented the self-consistent definitional semantics (case-insensitive count with multiplicity), so `countVowels('Ada Lovelace')` returns 6. Verified actual outputs: 'Ada Lovelace'=6, 'rhythm'=0, 'AEIOU'=5, 'aeiou'=5, 'y'=0, ''=0, '123 !?'=0 \u2014 every clause holds except the miscounted literal 4.",
+    "task 1: The peer's exam at `tests/vowels.test.ts` will likely assert 4 for 'Ada Lovelace' straight from the task text and therefore fail against this implementation. The failure is the defective expected value, not the helper; the fix is to correct the literal to 6 in the exam (or in issue #9's claim), which I did not do since that path is reserved for the peer.",
+    "task 1: examiner: (a) [M1] `countVowels('Ada Lovelace')` equals `4` \u2014 The pinned literal contradicts the rest of the contract, so no implementation can satisfy both and an assertion on it would be red forever rather than red only for the absent implementation. Under M1's own rule (vowels are a/e/i/o/u and nothing else, counted with multiplicity) plus M2 (case is ignored), 'Ada Lovelace' matches A, a, o, e, a, e = 6. Counting each distinct vowel once gives 3; counting consonants (d, L, v, l, c) gives 5. None is 4 \u2014 the only reading yielding 4 is a case-SENSITIVE distinct-character count {A, a, o, e}, which M1 (multiplicity) and M2 (case ignored) each forbid. The task's own Context names the shape `match(/[aeiou]/gi)` and return the match count, which also yields 6, and the Claim repeats the 4 as quoted from issue #9 \u2014 so the literal, not the rule, is the error. The exam therefore does not adjudicate the value: it keeps the input live via the leg's own stated negatives (not 3, not 5) and via M1/M2/M3 invariances on it, which a hard-coded special case fails (verified). M2's pins 'AEIOU'\u21925 and 'aeiou'\u21925, 'y'\u21920 and the multiplicity check independently fix the intended behaviour, so no discriminating power is lost. Whoever resolves this should correct either the literal (4\u21926) or the rule in issue #9.",
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing",
+    "task 1: plan-defect deferred to the gate \u2014 plan-defect: the task's own pinned literal is unsatisfiable, so the Claim is not established by the exam. Claim, Machine M1 and Proof leg (a) all pin `countVowels('Ada Lovelace')` to `4`. Under M1's own rule (vowels are exactly a/e/i/o/u, counted with multiplicity) plus M2 (case ignored), 'Ada Lovelace' matches A, a, o, e, a, e = 6; the Context's own named shape, `match(/[aeiou]/gi)` and return the match count, also yields 6. 3 is the distinct-vowel count and 5 the consonant count; only a case-sensitive distinct-character count ({A,a,o,e}) gives 4, and M1 and M2 each forbid that. src/vowels.ts:22 implements the Context's shape and returns 6 \u2014 the divergence is correct and is disclosed at tests/vowels.test.ts:43-54, so it is lawful and I am not asking the implementer to change it. But the consequence is that no test in the exam asserts leg (a)'s positive value at all: tests/vowels.test.ts:55-58 asserts only `not.toBe(3)` / `not.toBe(5)`, and tests/vowels.test.ts:63-67 asserts only case/space invariance. Leg (a)'s pinned equality therefore has no evidence in the diff, and no edit inside this task's FILES can supply it \u2014 any implementation that returns 4 for that input fails M2 and the invariance assertions the exam already carries. The path that has to change is the task text itself (Claim, Machine M1, and Proof leg (a): `4` \u2192 `6`); actor `plan`, so this parks at the gate for the operator to settle rather than routing to a fix round. Once the operator settles the literal, the exam should gain the positive pin, e.g. `expect(countVowels('Ada Lovelace')).toBe(6)` alongside the existing negatives at tests/vowels.test.ts:55-58. Everything else in the submission is clean: M2, M3, M4, M5, the Produces contract, the README three-column shape and the no-barrel/no-`any` constraints are each pinned by a passing test or a driver check.",
+    "task 1: plan-defect deferred to the gate \u2014 plan-defect: the Claim and Machine clause M1 pin `countVowels('Ada Lovelace')` to `4`, and Proof leg (a) grades that literal \u2014 but no implementation obeying M1/M2 can produce it, so the Claim is not established by this submission and cannot be by any edit inside this task's FILES. 'Ada Lovelace' is A,d,a,' ',L,o,v,e,l,a,c,e; the vowels a,e,i,o,u counted with multiplicity, case ignored (M2), are A,a,o,e,a,e = 6. The Context's own named shape, `match(/[aeiou]/gi)` and return the match count, also yields 6. The competing readings the leg itself names give 3 (distinct vowels) and 5 (consonants); only a case-SENSITIVE distinct-character count {A,a,o,e} gives 4, which M1 and M2 each forbid. The submitted `src/vowels.ts:7` implements the Context's shape exactly and returns 6; the peer exam (tests/vowels.test.ts:55-67) discloses this in a referee note and substitutes what every reading of leg (a) agrees on \u2014 not-3, not-5, and the M1/M2/M3 invariances on that very input (case-folding equality and the space being ignored, which also defeats a hard-coded special case). That substitution is a lawful, disclosed divergence and covers the rest of leg (a); every other clause (M1 'rhythm'/multiplicity, M2, M3, M4, M5, Produces) is asserted by name and passes under EXAM EVIDENCE, and both `Run:` greps exit 0. What remains unsettled is the pinned value itself, and the defect is in the task's own text, so the operator has to settle it: either the pin becomes `6` (consistent with M1's stated rule and the Context's shape, no code change needed), or the intended input string was some other one \u2014 in which case M1, the Claim, and Proof leg (a) all have to name it together."
+  ],
+  "unfinished": [],
+  "completenessFindings": [
+    {
+      "severity": "blocking",
+      "detail": "Task 1 (`countVowels`), Claim slot \u2014 unmet in the integrated tree. The operator's own sentence is \"I can import countVowels from its own module and see 'Ada Lovelace' become 4\" (plan /home/exedev/plans/run-10.md:5-6, quoted from walk issue #9, and restated as M1). The integrated implementation at src/vowels.ts:7 is `(text.match(/[aeiou]/gi) ?? []).length`, so `countVowels('Ada Lovelace')` is 6, not 4: the string A-d-a-space-L-o-v-e-l-a-c-e matches A, a, o, e, a, e \u2014 six occurrences. The headline observable of the Claim is therefore not delivered. This is a contract defect, not an implementation slip: M1's own rule (\"the vowels are a, e, i, o, u and nothing else, counted with multiplicity\") plus M2 (\"case is ignored\") force 6, the Context's named shape `match(/[aeiou]/gi)` forces 6, and 4 arises only from a case-sensitive distinct-character count ({A, a, o, e}) that M1 and M2 each forbid \u2014 so no implementation can satisfy both the pinned literal and the rule it is stated with. The peer exam saw this and deliberately declined to assert it (tests/vowels.test.ts:15-30 asserts only `not.toBe(3)` and `not.toBe(5)` for this input), so the green suite and the two `Run:` legs, which check the README row and the module wiring only, are not evidence for the Claim's literal. The run cannot be reported as showing 'Ada Lovelace' become 4; the plan Claim and issue #9's sentence need the operator's correction (either the literal becomes 6 or the counting rule changes) before merge."
+    },
+    {
+      "severity": "minor",
+      "detail": "Task 1 (`countVowels`), Proof slot \u2014 leg (a) is stated as \"`countVowels('Ada Lovelace')` equals `4` and `countVowels('rhythm')` equals `0`\" (plan /home/exedev/plans/run-10.md:79-81) but the committed exam tests/vowels.test.ts covers only the `'rhythm'` half plus invariance and negative assertions; the `4` half of the leg has no assertion anywhere in the suite. Whatever resolution the Claim literal gets, leg (a) as written is currently unexercised, so the Proof's own text overstates what the suite verifies."
+    }
+  ],
+  "blockedWaves": []
+}

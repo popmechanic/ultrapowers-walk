@@ -1,0 +1,156 @@
+{
+  "ok": true,
+  "stamp": "run-10",
+  "stages": [
+    {
+      "stage": "fleet-run",
+      "ok": true,
+      "detail": "fleet run run-10"
+    },
+    {
+      "stage": "git-repo",
+      "ok": true,
+      "detail": "/home/exedev/target"
+    },
+    {
+      "stage": "worktree-probe",
+      "ok": true,
+      "detail": "worktree capability verified (probe cut and removed)"
+    },
+    {
+      "stage": "compile",
+      "ok": true,
+      "detail": "1 task(s) in 1 wave(s); acceptance: suite"
+    },
+    {
+      "stage": "test-command",
+      "ok": true,
+      "detail": "bun run test (detected:package-json-bun)"
+    },
+    {
+      "stage": "bootstrap-command",
+      "ok": true,
+      "detail": "bun install --frozen-lockfile (detected:bun-lockfile)"
+    },
+    {
+      "stage": "dirty-baseline",
+      "ok": true,
+      "detail": "dirty baseline recorded: 0 pre-existing line(s)"
+    },
+    {
+      "stage": "base-branch",
+      "ok": true,
+      "detail": "detached HEAD \u2192 fell back to repo default 'main'"
+    }
+  ],
+  "compile": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "`countVowels`",
+        "disposition": "implementation",
+        "heuristic": false,
+        "writes": [
+          "README.md",
+          "src/vowels.ts"
+        ],
+        "depends_on": [],
+        "interfaces": {
+          "consumes": [
+            "none"
+          ],
+          "produces": [
+            "`countVowels(text: string) -> number`"
+          ]
+        }
+      }
+    ],
+    "dag_edges": [],
+    "marker_conflicts": [],
+    "gates": [],
+    "post_merge_runbook": [],
+    "waves": [
+      [
+        "1"
+      ]
+    ],
+    "launch_waves": [
+      [
+        {
+          "id": "1",
+          "title": "`countVowels`",
+          "files": [
+            "README.md",
+            "src/vowels.ts",
+            "tests/vowels.test.ts"
+          ],
+          "depends_on": [],
+          "interfaces": {
+            "consumes": [
+              "none"
+            ],
+            "produces": [
+              "`countVowels(text: string) -> number`"
+            ]
+          },
+          "tier": null,
+          "review": "peer",
+          "writes": [
+            "README.md",
+            "src/vowels.ts"
+          ],
+          "commutes": [],
+          "proofTests": [
+            "tests/vowels.test.ts"
+          ],
+          "testCmd": "bun test tests/vowels.test.ts",
+          "proofRuns": [
+            "grep -qE '^\\| .countVowels. \\| .src/vowels\\.ts. \\|' README.md",
+            "grep -qE \"from '\\.\\./src/vowels'\" tests/vowels.test.ts && grep -qE '^export (const|function) countVowels\\b' src/vowels.ts && ! grep -rlE '(const|function) countVowels\\b' src --exclude=vowels.ts | grep -q ."
+          ]
+        }
+      ]
+    ],
+    "waveLabels": [
+      "`countVowels`"
+    ],
+    "mode": "sequential",
+    "degrade_reason": "Sequential mode: 1 implementation tasks",
+    "allHeuristic": false,
+    "acceptance": {
+      "mode": "suite",
+      "reason": "the committed suite is the verification."
+    },
+    "globalConstraints": "- No `any` and no non-null assertions in any file under `src/` or `tests/`.\n- No dependency is added to `package.json`; no helper imports from another helper's module,\n  and there is no barrel file (`src/index.ts` is not created).\n- The modules at BASE under `src/` and their test files under `tests/` are not edited.\n- The README table keeps its three-column shape (`Function | Module | Does`); a new row has the\n  same shape as the rows already there.\n\n**Acceptance:** suite \u2014 the committed suite is the verification.",
+    "constraintChecks": [
+      {
+        "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+        "minor": false
+      },
+      {
+        "cmd": "test -e src/slug.ts && test -e src/snake.ts && test -e src/kebab.ts",
+        "minor": false
+      },
+      {
+        "cmd": "grep -rn 'TODO' src tests",
+        "minor": true
+      }
+    ],
+    "launch_file": "/home/exedev/target/.claude/ultrapowers/run-run-10/launch.json",
+    "args_file": "/home/exedev/target/.claude/ultrapowers/run-run-10/args.json"
+  },
+  "baseBranch": "main",
+  "launchFile": "/home/exedev/target/.claude/ultrapowers/run-run-10/launch.json",
+  "argsFile": "/home/exedev/target/.claude/ultrapowers/run-run-10/args.json",
+  "workflowName": "ultrapowers-run",
+  "llmDerives": [
+    "waves[][].tier on the args-file wave entries (slots pre-emitted as null; the engine reads knobs ONLY from these inline entries \u2014 never a top-level launch key)",
+    "nothing for waves[][].testCmd \u2014 the per-task command is compiler-derived from the task's Proof `Test:` paths and pre-filled on the wave entries (run-wide testCmd is driver-derived \u2014 knob or detection \u2014 and already stamped in the args file and receipt)",
+    "nothing for bootstrapCmd \u2014 driver-derived from the target's lockfile/manifest (or the --bootstrap-cmd knob) and stamped in the args file and receipt, so validation, the engine and the gate share one value",
+    "nothing for review depth \u2014 it is plan-authored (**Review:** marker), pre-filled on the args wave entries"
+  ],
+  "testCmd": "bun run test",
+  "testCmdSource": "detected:package-json-bun",
+  "bootstrapCmd": "bun install --frozen-lockfile",
+  "bootstrapCmdSource": "detected:bun-lockfile"
+}
