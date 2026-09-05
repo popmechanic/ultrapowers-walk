@@ -1,0 +1,222 @@
+{
+  "integrationBranch": "ultra/integration-run-6",
+  "baseSha": "208c1e80ced66786acf808c3e98306638db330e4",
+  "waves": [
+    [
+      "1",
+      "2",
+      "3"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "7d545c2b41b7fad4710554d8c772fdc500b4358d",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-6/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "Footprint: the diff adds `tests/kebab.impl.test.ts`, a path outside this task's FILES (`README.md`, `src/kebab.ts`, `tests/kebab.test.ts`). It deletes nothing at BASE and does not touch a SIBLING FILES path, so it is minor, but under the `suite` acceptance it becomes a permanently committed second test file. Its ten assertions are a copy of the peer exam's (same `helloWorld`/`HelloWorldAgain`/`snake_case_in` cases, same README three-column-shape and ten-untouched-rows blocks, same `readdirSync` no-other-module scan), so the duplication is maintenance cost with no leg of its own: the file's own header comment states the graded exam is `tests/kebab.test.ts`. Suggest deleting it \u2014 the peer exam already establishes M1-M5 and the driver's exam run exited 0 on this tree.; Scope: the patch adds `tests/kebab.impl.test.ts`, a path outside FILES (`README.md`, `src/kebab.ts`, `tests/kebab.test.ts`). Its 9 tests are a near-verbatim copy of the peer exam at `tests/kebab.test.ts` (same M1-M3 cases, the same README three-column-shape and ten-untouched-rows assertions, the same `readdirSync` no-other-module scan) minus the exam-import leg \u2014 so under `Acceptance: suite` the committed suite now runs the same assertions twice, and any future change to a leg has to be made in two places. The file is disclosed and self-describing (its header says the graded exam is the peer's and is not written here), which is why this is advisory rather than blocking, and it introduces no false pass: every clause it checks is also checked by the graded exam, whose EXAM EVIDENCE is `exit 0`. Suggested fix: delete `tests/kebab.impl.test.ts` and let the peer exam be the single grading, keeping the footprint equal to FILES.; concern: out-of-FILES: tests/kebab.impl.test.ts \u2014 the task's declared Test path tests/kebab.test.ts is reserved for the peer's exam, so my own red\u2192green tests live at tests/kebab.impl.test.ts instead. It is a new file; nothing at BASE was edited, and it does not collide with either sibling task's files.; concern: The declared TEST COMMAND `bun test tests/kebab.test.ts` cannot run in this tree \u2014 that file does not exist at BASE and is the peer's to write. I verified with `bun test tests/kebab.impl.test.ts` and the full `bun test` suite instead.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    },
+    {
+      "task": "2",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "0b8c4b2f9e44739a23aac95ddf6f46225aefb546",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-6/patches/task-2.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    },
+    {
+      "task": "3",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "ab47d69db5b8bb0e21981d928e8b51684449c976",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-6/patches/task-3.patch",
+      "reviewVerdict": "clean",
+      "notes": "Out-of-scope file: `tests/vowels.impl.test.ts` is created by this patch but is not in FILES (`README.md`, `src/vowels.ts`, `tests/vowels.test.ts`). Its 84 lines are a near-verbatim copy of the peer exam at `tests/vowels.test.ts` \u2014 the same `read()` helper, the same README three-column cell-split assertions, the same `readdirSync` module-uniqueness scan, the same `src/index.ts` barrel check, and strictly weaker versions of legs (a)/(b)/(c) (it drops the negative pins `not.toBe(1)/(2)/(6)`, `'BANANA'`, `'QuEuE'`). It therefore verifies nothing the exam does not already verify (exam evidence: 14 pass, exit 0) and is duplicated logic that will drift from the exam it copies. Since the acceptance mode is `suite`, this file is committed and runs on every `bun test`. Recommend deleting it; the graded exam already covers M1\u2013M5 and the Produces contract.; Out-of-scope file: the patch adds `tests/vowels.impl.test.ts`, a path outside this task's declared FILES (README.md, src/vowels.ts, tests/vowels.test.ts). Its eight tests are a near-verbatim copy of the peer exam at `tests/vowels.test.ts` (same banana/rhythm, AEIOU/Queue, ''/'b' pins; the same README three-column cell-split assertion with the identical `| a | b | c | splits into 5 parts` comment; the same M5 export/no-other-module scan; the same `src/index.ts` barrel check). It establishes nothing the exam does not already establish and duplicates logic that will now have to be kept in sync in two places. Not blocking \u2014 it creates no path FILES forbids, deletes nothing, and touches no sibling-owned path \u2014 but it should be dropped so the exam is the single grading artifact.; unverified: acceptance is `suite` \u2014 the committed suite is the verification \u2014 but the driver's EXAM EVIDENCE ran only `bun test tests/vowels.test.ts` (14 pass, exit 0). The extra `tests/vowels.impl.test.ts` this patch adds joins the committed suite and was never executed by any evidence shown here. Its assertions mirror the exam's, so it very likely passes, but nothing in this record settles that, nor that the full suite is green once the two sibling README rows land in the same table (this diff appends its row after `isAnagram`, and both this file's and the exam's README assertions use `includes`/per-line regex rather than position, so a fold should be safe). What would settle it: a full `bun test` run on the merged tree. Deleting `tests/vowels.impl.test.ts` per the previous finding removes the unverified file from the suite entirely.; concern: out-of-FILES: tests/vowels.impl.test.ts \u2014 tests/vowels.test.ts is reserved for the peer's exam, so my own red\u2192green tests live at this adjacent path. It imports only ../src/vowels, edits nothing existing, and passes; delete it if the committed suite should contain only the peer exam.; concern: The declared TEST COMMAND `bun test tests/vowels.test.ts` cannot run in this tree \u2014 that path does not exist here by design (peer-authored, overlaid by the driver). I ran `bun test tests/vowels.impl.test.ts` and the full `bun test` instead.",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": "5]: no other module of src/ defines kebabCase [0.22ms]\n\ntests/vowels.test.ts:\n(pass) leg (a) [M1] banana counts 3 and rhythm counts 0 [0.05ms]\n(pass) leg (a) [M1] y is not a vowel and consonants are not what is counted [0.03ms]\n(pass) leg (b) [M2] an all-upper-case AEIOU counts 5 [0.01ms]\n(pass) leg (b) [M2] mixed-case Queue counts 4 [0.01ms]\n(pass) leg (b) [M2] counting lower-case only fails [0.03ms]\n(pass) leg (c) [M3] the empty string counts 0 [0.01ms]\n(pass) leg (c) [M3] a lone consonant counts 0 [0.01ms]\n(pass) [Produces] countVowels returns a number [0.02ms]\n(pass) README leg [M4] the README table has a countVowels row naming src/vowels.ts [0.15ms]\n(pass) README leg [M4] the existing ten table rows and header are untouched [0.10ms]\n(pass) module leg [M5] src/vowels.ts exports countVowels at top level [0.04ms]\n(pass) module leg [M5] the exam imports countVowels from ../src/vowels [0.07ms]\n(pass) module leg [M5] no other module under src/ defines countVowels [0.20ms]\n(pass) [global constraint] src/index.ts is not created [0.04ms]\n\ntests/capitalize.test.ts:\n(pass) leg (a) [M1]: capitalize('ada') is 'Ada' [0.05ms]\n(pass) leg (a) [M1]: upper-casing the whole word, or returning the input, fails [0.04ms]\n(pass) leg (b) [M2]: capitalize('aDA') is 'ADA' [0.01ms]\n(pass) leg (b) [M2]: lower-casing the rest fails [0.03ms]\n(pass) leg (b) [M2]: capitalize('  ada') is '  ada' [0.02ms]\n(pass) leg (b) [M2]: trimming, or capitalising past the leading space, fails [0.04ms]\n(pass) leg (c) [M3]: capitalize('') is '' [0.01ms]\n(pass) leg (c) [M3]: capitalize('A') is 'A' [0.01ms]\n(pass) leg (c) [M3]: capitalize('a') is 'A' [0.01ms]\n(pass) [Produces] capitalize(text: string) returns a string [0.02ms]\n(pass) README leg [M4]: README.md has a `capitalize` | `src/capitalize.ts` table row [0.26ms]\n(pass) README leg [M4]: the header and the ten existing rows are untouched [0.10ms]\n(pass) module leg [M5]: the exam imports from ../src/capitalize and that file exports capitalize [0.12ms]\n(pass) module leg [M5]: no other file under src/ defines capitalize, and there is no barrel [0.22ms]\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.13ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.03ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.02ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.03ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.11ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.05ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.06ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.07ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.18ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.07ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly true [0.01ms]\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.01ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.05ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.10ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.08ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.29ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.11ms]\n(pass) interior whitespace is kept as is [0.02ms]\n(pass) a tab separator survives unchanged [0.01ms]\n(pass) the empty string stays empty [0.02ms]\n\n 142 pass\n 0 fail\n 363 expect() calls\nRan 142 tests across 15 files. [38.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .kebabCase. \\| .src/kebab\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/kebab'\" tests/kebab.test.ts && grep -qE '^export (const|function) kebabCase\\b' src/kebab.ts && ! grep -rlE '(const|function) kebabCase\\b' src --exclude=kebab.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE '^\\| .capitalize. \\| .src/capitalize\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "2",
+      "cmd": "grep -qE \"from '\\.\\./src/capitalize'\" tests/capitalize.test.ts && grep -qE '^export (const|function) capitalize\\b' src/capitalize.ts && ! grep -rlE '(const|function) capitalize\\b' src --exclude=capitalize.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE '^\\| .countVowels. \\| .src/vowels\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "3",
+      "cmd": "grep -qE \"from '\\.\\./src/vowels'\" tests/vowels.test.ts && grep -qE '^export (const|function) countVowels\\b' src/vowels.ts && ! grep -rlE '(const|function) countVowels\\b' src --exclude=vowels.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/camel.ts && test -e src/title.ts && test -e src/truncate.ts && test -e src/count.ts && test -e src/reverse.ts && test -e src/palindrome.ts && test -e src/snake.ts && test -e src/initials.ts && test -e src/anagram.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 213299,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 3,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "s capitalize [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines capitalize, and there is no barrel [0.09ms]\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.06ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.06ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.04ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.11ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.05ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.01ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.01ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.06ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.04ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.18ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.06ms]\n(pass) interior whitespace is kept as is [0.01ms]\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\n 142 pass\n 0 fail\n 363 expect() calls\nRan 142 tests across 15 files. [17.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": ".test.ts:\n(pass) lower-cases and hyphenates [0.05ms]\n(pass) trims hyphens from both ends\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.06ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.01ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.01ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.04ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.09ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.05ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric [0.01ms]\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.06ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.04ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.16ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is [0.01ms]\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\n 84 pass\n 0 fail\n 201 expect() calls\nRan 84 tests across 10 files. [14.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "849e7865521810a885189a21bbc6378694b0d3e7",
+      "branches": [
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-6/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-6/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 5,
+      "foldCliWallTimeSec": 0.9440000000000001,
+      "autoResolved": 0,
+      "resolverTranscripts": [
+        {
+          "conflict": 1,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 2,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-6/frontier/wave-1/conflict-1.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-6/frontier/wave-1/reply-1-1",
+          "status": "RESOLVED",
+          "notes": "Both sides add independent new rows to the README table (capitalize from task 2, kebabCase from frontier/task 1). Kept both rows, frontier's kebabCase row placed after capitalize's, since neither task's instructions require a specific relative order among sibling additions."
+        },
+        {
+          "conflict": 2,
+          "attempt": 1,
+          "path": "README.md",
+          "epoch": 4,
+          "hunksFile": "/home/exedev/target/.claude/ultrapowers/run-run-6/frontier/wave-1/conflict-2.hunks.txt",
+          "replyDir": "/home/exedev/target/.claude/ultrapowers/run-run-6/frontier/wave-1/reply-2-1",
+          "status": "RESOLVED",
+          "notes": "Additive table-row conflict from three independent tasks (capitalize, countVowels, kebabCase). All three are compatible additions to the function table, so kept all rows, ordering: capitalize, countVowels, kebabCase."
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 3,
+    "tasks_planned": 3,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 3: out-of-FILES: tests/vowels.impl.test.ts \u2014 tests/vowels.test.ts is reserved for the peer's exam, so my own red\u2192green tests live at this adjacent path. It imports only ../src/vowels, edits nothing existing, and passes; delete it if the committed suite should contain only the peer exam.",
+    "task 3: The declared TEST COMMAND `bun test tests/vowels.test.ts` cannot run in this tree \u2014 that path does not exist here by design (peer-authored, overlaid by the driver). I ran `bun test tests/vowels.impl.test.ts` and the full `bun test` instead.",
+    "task 3: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 2: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "task 1: out-of-FILES: tests/kebab.impl.test.ts \u2014 the task's declared Test path tests/kebab.test.ts is reserved for the peer's exam, so my own red\u2192green tests live at tests/kebab.impl.test.ts instead. It is a new file; nothing at BASE was edited, and it does not collide with either sibling task's files.",
+    "task 1: The declared TEST COMMAND `bun test tests/kebab.test.ts` cannot run in this tree \u2014 that file does not exist at BASE and is the peer's to write. I verified with `bun test tests/kebab.impl.test.ts` and the full `bun test` suite instead.",
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [
+    {
+      "severity": "minor",
+      "detail": "Two test files exist in the integrated tree that no task's Files slot declares: `tests/kebab.impl.test.ts` (Task 1) and `tests/vowels.impl.test.ts` (Task 3). Task 1's Files slot lists only `src/kebab.ts`, `README.md`, `tests/kebab.test.ts`; Task 3's lists only `src/vowels.ts`, `README.md`, `tests/vowels.test.ts`. Both files duplicate their peer exam's coverage almost line for line (e.g. `tests/kebab.impl.test.ts:15-33` repeats legs (a)-(c) of `tests/kebab.test.ts:13-49`) and neither violates a Global Constraint, so this does not stop a merge. It is asymmetric across the run \u2014 Task 2 (`capitalize`) added no such file \u2014 which matters only because this plan's Goal is a like-for-like A/B of chain shape across runs 3-6; the extra implementer-authored test files are an uncounted per-task artifact in that comparison."
+    }
+  ],
+  "blockedWaves": []
+}
