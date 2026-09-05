@@ -14,3 +14,6 @@ A tiny string-utilities library in Bun + TypeScript. `bun test` runs the suite.
 | `snakeCase` | `src/snake.ts` | mixed-case, kebab or spaced text → snake_case |
 | `initials` | `src/initials.ts` | first letter of every word, upper-cased and joined |
 | `isAnagram` | `src/anagram.ts` | same letters the same number of times, ignoring case and punctuation |
+| `capitalize` | `src/capitalize.ts` | first character up, the rest left as it was |
+| `countVowels` | `src/vowels.ts` | count the `a`, `e`, `i`, `o`, `u` in text, ignoring case |
+| `kebabCase` | `src/kebab.ts` | mixed-case, snake or spaced text → kebab-case |
