@@ -1,0 +1,133 @@
+{
+  "integrationBranch": "ultra/integration-run-9",
+  "baseSha": "2ae4528eac803773a52567729c66af2ecc746206",
+  "waves": [
+    [
+      "1"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "ca07dfda7bd60c87e36fe20c7b8f86d61c0f328b",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-9/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": "\n(pass) upper-cases every segment after the first [0.05ms]\n(pass) leading, trailing and doubled hyphens vanish [0.01ms]\n(pass) a single segment comes back unchanged\n(pass) the empty string stays empty\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.08ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.01ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.04ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.05ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.09ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.03ms]\n(pass) trims hyphens from both ends\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.05ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.03ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.02ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.10ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.07ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.18ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\ntests/pangram.test.ts:\n(pass) leg (a) [M1]: the quick brown fox is exactly true, and its \"cat\" variant exactly false [0.05ms]\n(pass) leg (b) [M2]: the upper-case alphabet is exactly true, so case is ignored\n(pass) leg (b) [M2]: an upper- and lower-case pair is one letter, not two [0.02ms]\n(pass) leg (b) [M2]: punctuation and spacing are ignored, so the split alphabet is exactly true [0.01ms]\n(pass) leg (b) [M2]: a digit never stands in for the missing letter, so this is exactly false [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly false\n(pass) [Produces] the result is a real boolean, not a truthy or falsy stand-in [0.05ms]\n(pass) README leg [M4]: the README table has a three-column row for isPangram | src/pangram.ts [0.10ms]\n(pass) module leg [M5]: src/pangram.ts exports isPangram at top level and the exam imports it from ../src/pangram [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPangram [0.20ms]\n\n 105 pass\n 0 fail\n 264 expect() calls\nRan 105 tests across 12 files. [16.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .isPangram. \\| .src/pangram\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/pangram'\" tests/pangram.test.ts && grep -qE '^export (const|function) isPangram\\b' src/pangram.ts && ! grep -rlE '(const|function) isPangram\\b' src --exclude=pangram.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/snake.ts && test -e src/anagram.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 60952,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 1,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.01ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.07ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.04ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.18ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.01ms]\n\ntests/pangram.test.ts:\n(pass) leg (a) [M1]: the quick brown fox is exactly true, and its \"cat\" variant exactly false [0.05ms]\n(pass) leg (b) [M2]: the upper-case alphabet is exactly true, so case is ignored\n(pass) leg (b) [M2]: an upper- and lower-case pair is one letter, not two [0.02ms]\n(pass) leg (b) [M2]: punctuation and spacing are ignored, so the split alphabet is exactly true\n(pass) leg (b) [M2]: a digit never stands in for the missing letter, so this is exactly false\n(pass) leg (c) [M3]: the empty string is exactly false\n(pass) [Produces] the result is a real boolean, not a truthy or falsy stand-in [0.05ms]\n(pass) README leg [M4]: the README table has a three-column row for isPangram | src/pangram.ts [0.11ms]\n(pass) module leg [M5]: src/pangram.ts exports isPangram at top level and the exam imports it from ../src/pangram [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPangram [0.22ms]\n\n 105 pass\n 0 fail\n 264 expect() calls\nRan 105 tests across 12 files. [19.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": ".09ms]\n\ntests/slug.test.ts:\n(pass) lower-cases and hyphenates [0.03ms]\n(pass) trims hyphens from both ends [0.01ms]\n(pass) the empty string stays empty\n\ntests/snake.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.05ms]\n(pass) leg (b) [M2]: hyphens and whitespace runs are word boundaries [0.02ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string\n(pass) README leg [M4]: the table lists snakeCase against src/snake.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.07ms]\n(pass) README leg [M4]: the seven rows already there are untouched [0.04ms]\n(pass) module leg [M5]: src/snake.ts exports snakeCase at top level [0.09ms]\n(pass) module leg [M5]: the exam imports snakeCase from ../src/snake [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines snakeCase [0.11ms]\n\ntests/palindrome.test.ts:\n(pass) leg (a) [M1]: punctuation and case are ignored, so both sentences are exactly true [0.04ms]\n(pass) leg (b) [M2]: a non-palindrome is exactly false, and so is the bare pair \"ab\" [0.02ms]\n(pass) leg (c) [M3]: the empty string is exactly true\n(pass) leg (d) [M3]: a digit palindrome is exactly true\n(pass) leg (e) [M1]: underscore and plus sign are ignored like any other non-alphanumeric\n(pass) [Produces] the result is a real boolean, not a truthy value [0.03ms]\n(pass) README leg [M4]: the README table has a row for isPalindrome | src/palindrome.ts [0.06ms]\n(pass) module leg [M5]: src/palindrome.ts exports isPalindrome at top level [0.05ms]\n(pass) module leg [M5]: no other file under src/ defines isPalindrome [0.24ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.07ms]\n(pass) interior whitespace is kept as is\n(pass) a tab separator survives unchanged\n(pass) the empty string stays empty [0.02ms]\n\n 95 pass\n 0 fail\n 232 expect() calls\nRan 95 tests across 11 files. [15.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "51a7f818ce19b6e1fd39f2d8756c7085ffa57203",
+      "branches": [
+        "1"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-9/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-9/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 3,
+      "foldCliWallTimeSec": 0.378,
+      "autoResolved": 0,
+      "resolverTranscripts": []
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 1,
+    "tasks_planned": 1,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [
+    {
+      "severity": "minor",
+      "detail": "Task 1 (`isPangram`), Claim/M2+M3 documentation: the doc comment in `src/pangram.ts:10` welds two unrelated clauses into a false statement \u2014 \"Digits never stand in for letters, so `isPangram('')` \u2192 `false`.\" The empty string is `false` because it contains none of the 26 letters (M3), not because of the digit rule (M2). The implementation at `src/pangram.ts:12-13` is correct for both clauses and the exam at `tests/pangram.test.ts:60-68` covers them separately; only the comment's reasoning is wrong. Cosmetic \u2014 does not affect behavior, the Claim, or any Proof leg."
+    }
+  ],
+  "blockedWaves": []
+}
