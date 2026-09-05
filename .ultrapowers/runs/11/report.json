@@ -1,0 +1,128 @@
+{
+  "integrationBranch": "ultra/integration-run-11",
+  "baseSha": "2ae4528eac803773a52567729c66af2ecc746206",
+  "waves": [
+    [
+      "1"
+    ]
+  ],
+  "dependencyEdges": [],
+  "tasks": [
+    {
+      "task": "1",
+      "baseCorrected": null,
+      "status": "done",
+      "branch": "",
+      "exam": "red",
+      "headSha": "a3f51641e0ee47e56e5a1e6b873c5a1a9dabc88c",
+      "patch": "/home/exedev/target/.claude/ultrapowers/run-run-11/patches/task-1.patch",
+      "reviewVerdict": "clean",
+      "notes": "",
+      "tier": "opus",
+      "review": "peer",
+      "fixIterations": 0,
+      "proposedPatches": 0,
+      "proofFixes": 0,
+      "examEdited": []
+    }
+  ],
+  "tests": {
+    "command": "bun run test",
+    "passed": true,
+    "output": "itials(\"\") is \"\"\n(pass) leg (c) [M3]: a whitespace-only string has no words and joins to \"\"\n(pass) leg (c) [M3]: initials(\"solo\") is \"S\"\n(pass) [Produces] initials returns a string [0.02ms]\n(pass) README leg [M4]: README.md has an `initials` | `src/initials.ts` table row [0.17ms]\n(pass) README leg [M4]: the header and the seven existing rows are untouched [0.07ms]\n(pass) module leg [M5]: the exam imports from ../src/initials and that file exports initials [0.09ms]\n(pass) module leg [M5]: no other file under src/ defines initials, and there is no barrel [0.15ms]\n\ntests/title.test.ts:\n(pass) upper-cases the first letter of every word and lower-cases the rest [0.10ms]\n(pass) interior whitespace is kept as is [0.01ms]\n(pass) a tab separator survives unchanged [0.01ms]\n(pass) the empty string stays empty [0.02ms]\n\ntests/vowels.test.ts:\n(pass) leg (a) [M1] countVowels('Ada Lovelace') is 6 and countVowels('rhythm') is 0 [0.07ms]\n(pass) leg (a) [M1] the count is neither the consonants nor the distinct vowels [0.02ms]\n(pass) leg (a) [M1] repeated vowels are counted with multiplicity\n(pass) leg (b) [M2] countVowels('AEIOU') is 5 and countVowels('aeiou') is 5 [0.01ms]\n(pass) leg (b) [M2] the count is not case-sensitive\n(pass) leg (b) [M2] countVowels('y') is 0 and y is never admitted [0.02ms]\n(pass) leg (c) [M3] countVowels('') is 0\n(pass) leg (c) [M3] countVowels('123 !?') is 0\n(pass) [Produces] countVowels returns a number [0.02ms]\n(pass) README leg [M4] the README table has a countVowels row naming src/vowels.ts [0.12ms]\n(pass) README leg [M4] the existing table rows and header are untouched [0.07ms]\n(pass) module leg [M5] src/vowels.ts exports countVowels at top level [0.04ms]\n(pass) module leg [M5] the exam imports countVowels from ../src/vowels [0.04ms]\n(pass) module leg [M5] no other module under src/ defines countVowels [0.18ms]\n(pass) [global constraint] src/index.ts is not created [0.04ms]\n\ntests/anagram.test.ts:\n(pass) leg (a) [M1] ('listen','silent') is exactly true and ('listen','silence') is exactly false [0.08ms]\n(pass) leg (a) [M1] length-only and set-only comparisons are rejected [0.02ms]\n(pass) leg (b) [M2] ('Dormitory','dirty room!') is exactly true \u2014 case and non-letters ignored [0.01ms]\n(pass) leg (b) [M2] ('aab','abb') is exactly false \u2014 letter counts matter, not the set\n(pass) leg (b) [M2] case alone is ignored, and non-letters alone are ignored [0.03ms]\n(pass) leg (c) [M3] ('','') is exactly true\n(pass) leg (c) [M3] ('a','') is exactly false [0.01ms]\n(pass) [Produces] isAnagram returns a real boolean [0.08ms]\n(pass) README leg [M4] the README table has an isAnagram row naming src/anagram.ts [0.16ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.06ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.06ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.04ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.24ms]\n(pass) [global constraint] src/index.ts is not created [0.04ms]\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.08ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.09ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.01ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.02ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.03ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.11ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.06ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.08ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.06ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.04ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.14ms]\n\n 110 pass\n 0 fail\n 260 expect() calls\nRan 110 tests across 12 files. [22.00ms]\n"
+  },
+  "integratedRuns": [
+    {
+      "task": "1",
+      "cmd": "grep -qE '^\\| .countVowels. \\| .src/vowels\\.ts. \\|' README.md",
+      "exit": 0,
+      "stdout": ""
+    },
+    {
+      "task": "1",
+      "cmd": "grep -qE \"from '\\.\\./src/vowels'\" tests/vowels.test.ts && grep -qE '^export (const|function) countVowels\\b' src/vowels.ts && ! grep -rlE '(const|function) countVowels\\b' src --exclude=vowels.ts | grep -q .",
+      "exit": 0,
+      "stdout": ""
+    }
+  ],
+  "integratedChecks": [
+    {
+      "cmd": "! grep -rnE 'as any|: any\\b|![.)]' src tests",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "test -e src/slug.ts && test -e src/snake.ts && test -e src/kebab.ts",
+      "exit": 0,
+      "stdout": "",
+      "minor": false
+    },
+    {
+      "cmd": "grep -rn 'TODO' src tests",
+      "exit": 1,
+      "stdout": "",
+      "minor": true
+    }
+  ],
+  "reviewEconomy": {
+    "reviewerMs": 62396,
+    "blockingFindings": 0,
+    "blockingPerReviewerMinute": 0,
+    "pairRounds": 1,
+    "r2MarginalBlocking": 0
+  },
+  "shallowSuite": {
+    "depth": 1,
+    "command": "bun run test",
+    "passed": true,
+    "output": "isten','silence') is exactly false [0.10ms]\n(pass) leg (a) [M1] length-only and set-only comparisons are rejected [0.02ms]\n(pass) leg (b) [M2] ('Dormitory','dirty room!') is exactly true \u2014 case and non-letters ignored [0.02ms]\n(pass) leg (b) [M2] ('aab','abb') is exactly false \u2014 letter counts matter, not the set [0.01ms]\n(pass) leg (b) [M2] case alone is ignored, and non-letters alone are ignored [0.04ms]\n(pass) leg (c) [M3] ('','') is exactly true\n(pass) leg (c) [M3] ('a','') is exactly false [0.01ms]\n(pass) [Produces] isAnagram returns a real boolean [0.09ms]\n(pass) README leg [M4] the README table has an isAnagram row naming src/anagram.ts [0.17ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.06ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.06ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.04ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.25ms]\n(pass) [global constraint] src/index.ts is not created [0.04ms]\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.08ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.05ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged [0.01ms]\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.02ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.04ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.12ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.06ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.08ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.06ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.04ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.15ms]\n\n 110 pass\n 0 fail\n 260 expect() calls\nRan 110 tests across 12 files. [25.00ms]\n"
+  },
+  "acceptance": {
+    "mode": "suite",
+    "passed": true,
+    "reason": "the committed suite is the verification."
+  },
+  "baseline": {
+    "passed": true,
+    "output": "ten','silent') is exactly true and ('listen','silence') is exactly false [0.05ms]\n(pass) leg (a) [M1] length-only and set-only comparisons are rejected [0.02ms]\n(pass) leg (b) [M2] ('Dormitory','dirty room!') is exactly true \u2014 case and non-letters ignored\n(pass) leg (b) [M2] ('aab','abb') is exactly false \u2014 letter counts matter, not the set\n(pass) leg (b) [M2] case alone is ignored, and non-letters alone are ignored [0.02ms]\n(pass) leg (c) [M3] ('','') is exactly true\n(pass) leg (c) [M3] ('a','') is exactly false\n(pass) [Produces] isAnagram returns a real boolean [0.05ms]\n(pass) README leg [M4] the README table has an isAnagram row naming src/anagram.ts [0.08ms]\n(pass) README leg [M4] the header and the seven existing rows are untouched [0.04ms]\n(pass) module leg [M5] src/anagram.ts exports isAnagram at top level [0.03ms]\n(pass) module leg [M5] the exam imports isAnagram from ../src/anagram [0.03ms]\n(pass) module leg [M5] no other module under src/ defines isAnagram [0.14ms]\n(pass) [global constraint] src/index.ts is not created [0.02ms]\n\ntests/kebab.test.ts:\n(pass) leg (a) [M1]: an upper-case letter starts a new word, lower-cased [0.05ms]\n(pass) leg (b) [M2]: underscores and whitespace runs are word boundaries [0.01ms]\n(pass) leg (c) [M3]: the empty string stays empty and a lone word is unchanged\n(pass) legs (a)-(c) [M1-M3]: the return value is a string [0.01ms]\n(pass) README leg [M4]: the table lists kebabCase against src/kebab.ts [0.02ms]\n(pass) README leg [M4]: the new row keeps the three-column shape [0.06ms]\n(pass) README leg [M4]: the ten rows already there are untouched [0.03ms]\n(pass) README leg [M4]: the new row sits under the last existing row [0.05ms]\n(pass) module leg [M5]: src/kebab.ts exports kebabCase at top level [0.04ms]\n(pass) module leg [M5]: the exam imports kebabCase from ../src/kebab [0.03ms]\n(pass) module leg [M5]: no other module of src/ defines kebabCase [0.10ms]\n\n 95 pass\n 0 fail\n 232 expect() calls\nRan 95 tests across 11 files. [15.00ms]\n"
+  },
+  "waveMerges": [
+    {
+      "wave": 1,
+      "status": "MERGED",
+      "headSha": "868da29aa5b9b4ddeea706cd0d9a9689614d79c2",
+      "branches": [
+        "1"
+      ]
+    }
+  ],
+  "frontier": [
+    {
+      "wave": 1,
+      "foldLogPath": "/home/exedev/target/.claude/ultrapowers/run-run-11/frontier/wave-1/fold_log.jsonl",
+      "conflictsIndex": "/home/exedev/target/.claude/ultrapowers/run-run-11/frontier/wave-1/conflicts.json",
+      "selfChecks": "ok",
+      "foldCliCalls": 3,
+      "foldCliWallTimeSec": 0.387,
+      "autoResolved": 0,
+      "resolverTranscripts": []
+    }
+  ],
+  "coverage": {
+    "tasks_merged": 1,
+    "tasks_planned": 1,
+    "complete": true
+  },
+  "missingDeliverables": [],
+  "gitVerified": true,
+  "ancestryMisses": [],
+  "deferredVerification": [],
+  "judgmentCalls": [
+    "task 1: minor Check: `grep -rn 'TODO' src tests` exited 1 \u2014 recorded for the referee, blocking nothing",
+    "wave 1: the minor Check: `grep -rn 'TODO' src tests` exited 1 on the adopted tree \u2014 recorded for the critic, blocking nothing"
+  ],
+  "unfinished": [],
+  "completenessFindings": [],
+  "blockedWaves": []
+}
