@@ -1,0 +1,29 @@
+{
+ "tasks": {
+  "1": {
+   "hash": "b7bcf6503f268f4f89b7cb4a880fc0b433decce2a3b82b5cd04cb15a1c1bc3e2",
+   "verdict": "pass",
+   "reason": "round 1: M1-M3 exact pairs with named failing shapes; M4 row grep; M5 import/export/no-other-definition chain"
+  },
+  "2": {
+   "hash": "0d11233795417a7659c4ce62ecf25ed112e3680a3f28064404d91ff917685a3f",
+   "verdict": "pass",
+   "reason": "round 1: M1-M3 exact pairs with named failing shapes; M4 row grep; M5 import/export/no-other-definition chain"
+  },
+  "3": {
+   "hash": "563c895bbef69c49c1bfa849fdd4d2b517de16d02f1fd23f968f09d37e178363",
+   "verdict": "pass",
+   "reason": "round 1: M1-M3 exact pairs with named failing shapes; M4 row grep; M5 import/export/no-other-definition chain"
+  }
+ },
+ "tally": {
+  "dispatched": 3,
+  "rejected": 0,
+  "rounds": {
+   "1": {
+    "dispatched": 3,
+    "rejected": 0
+   }
+  }
+ }
+}
