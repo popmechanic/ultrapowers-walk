@@ -1,0 +1,15 @@
+{
+ "tasks": {
+  "1": {
+   "hash": "eda5cd64d72b4b348afe0a47ef461482d17d78214a80f3e921fa775d237c66c1",
+   "verdict": "pass",
+   "reason": "Every literal checks out (Ada Lovelace = 6, rhythm/y/''/'123 !?' = 0, AEIOU/aeiou = 5); legs (a)-(c) falsify M1-M3, the README grep pins M4, the module grep pins M5."
+  }
+ },
+ "tally": {
+  "dispatched": 2,
+  "rejected": 0,
+  "rounds": 2,
+  "note": "round 1 passed a wrong literal (4 vowels); the engine parked walk run-10 as plan-defect; corrected to 6 and re-read"
+ }
+}
